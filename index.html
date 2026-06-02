@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" style="background:#13100e;">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Japanese Kana — Hiragana & Katakana</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #1a1410; --ink-soft: #3d352c; --paper: #f7f3ed;
+      --vermillion: #c0392b; --vermillion-soft: #e74c3c; --gold: #b8962e;
+      --tile-bg: #faf7f2; --tile-border: #d9d0c2; --shadow: rgba(26,20,16,0.10);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--paper); color: var(--ink);
+      font-family: 'Cormorant Garamond', serif;
+      min-height: 100vh; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      position: relative; padding: 80px 24px 100px;
+      opacity: 0; animation: pageFadeIn 1s ease 0.05s forwards;
+    }
+    @keyframes pageFadeIn { from{opacity:0;} to{opacity:1;} }
+
+    /* Fade out on navigate */
+    body.fading { animation: pageFadeOut 0.4s ease forwards; }
+    @keyframes pageFadeOut { from{opacity:1;} to{opacity:0;} }
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background-image:
+        radial-gradient(ellipse 70% 60% at 50% 50%, rgba(192,57,43,0.05) 0%, transparent 70%),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 0;
+    }
+    .corner {
+      position: fixed; font-family: 'Noto Serif JP', serif;
+      font-size: 7rem; font-weight: 700; color: var(--tile-border);
+      opacity: 0.18; pointer-events: none; z-index: 0; line-height: 1; user-select: none;
+    }
+    .corner-tl { top: -10px; left: 10px; }
+    .corner-br { bottom: -10px; right: 10px; }
+    .rule {
+      width: 1px; position: fixed; top: 0; bottom: 0; left: 50%;
+      background: linear-gradient(to bottom, transparent, var(--tile-border) 20%, var(--tile-border) 80%, transparent);
+      opacity: 0.25; z-index: 0;
+    }
+    .wrap {
+      position: relative; z-index: 1;
+      display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 680px;
+    }
+    .main-title {
+      font-size: clamp(3.5rem, 10vw, 7rem); font-weight: 300; letter-spacing: 0.04em;
+      color: var(--ink); line-height: 1; text-align: center; margin-bottom: 4px;
+    }
+    .eyebrow {
+      font-family: 'Noto Serif JP', serif; font-size: 12px; letter-spacing: 0.4em;
+      color: var(--vermillion); text-transform: uppercase; margin-bottom: 20px;
+    }
+    .divider {
+      width: 50px; height: 1px; background: var(--vermillion);
+      margin: 0 auto 28px; position: relative; opacity: 0.6;
+    }
+    .divider::before, .divider::after {
+      content: ''; position: absolute; top: 50%; transform: translateY(-50%);
+      width: 4px; height: 4px; border-radius: 50%; background: var(--vermillion);
+    }
+    .divider::before { left: -8px; } .divider::after { right: -8px; }
+    .subtitle {
+      font-size: 1.05rem; font-style: italic; font-weight: 300; color: var(--ink-soft);
+      text-align: center; max-width: 380px; line-height: 1.75; margin-bottom: 40px;
+    }
+    .cards {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 18px; width: 100%;
+    }
+    @media (max-width: 580px) { .cards { grid-template-columns: 1fr; } }
+    .card {
+      background: var(--tile-bg); border: 1px solid var(--tile-border); border-radius: 10px;
+      padding: 48px 28px 40px; display: flex; flex-direction: column;
+      align-items: center; gap: 10px; text-decoration: none; color: inherit;
+      position: relative;
+      transition: box-shadow 0.25s ease, border-color 0.25s ease;
+    }
+    .card::before { display: none; }
+    .card:hover {
+      box-shadow: 0 0 0 1.5px var(--vermillion);
+      border-color: var(--vermillion);
+    }
+    .card-glyph {
+      font-family: 'Noto Serif JP', serif; font-size: 6rem; font-weight: 700;
+      color: var(--ink); line-height: 1;
+      transition: color 0.25s ease;
+    }
+    .card:hover .card-glyph { color: var(--vermillion); }
+    .card-script { font-size: 1.4rem; font-weight: 300; letter-spacing: 0.06em; color: var(--ink); transition: color 0.25s ease; }
+    .card:hover .card-script { color: var(--vermillion-soft); }
+    .card-native { font-family: 'Noto Serif JP', serif; font-size: 0.9rem; font-weight: 300; letter-spacing: 0.2em; color: var(--ink-soft); }
+    .footnote {
+      margin-top: 64px; font-size: 0.72rem; letter-spacing: 0.2em; color: var(--tile-border);
+      font-style: italic; text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <span class="corner corner-tl">仮</span>
+  <span class="corner corner-br">名</span>
+  <div class="rule"></div>
+  <div class="wrap">
+    <h1 class="main-title">仮名</h1>
+    <p class="eyebrow">Japanese Kana</p>
+    <div class="divider"></div>
+    <div class="cards">
+      <a class="card" href="hiragana.html">
+        <span class="card-glyph">あ</span>
+        <span class="card-script">Hiragana</span>
+        <span class="card-native">ひらがな</span>
+      </a>
+      <a class="card" href="katakana.html">
+        <span class="card-glyph">ア</span>
+        <span class="card-script">Katakana</span>
+        <span class="card-native">カタカナ</span>
+      </a>
+    </div>
+  </div>
+<script src="backgrounds.js"></script>
+<script src="nav.js"></script>
+<script src="titlebar.js"></script>
+<script src="darkmode.js"></script>
+<script>
+  document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('click', e => {
+      e.preventDefault();
+      const href = card.getAttribute('href');
+      document.body.classList.add('fading');
+      setTimeout(() => { location.href = href; }, 400);
+    });
+  });
+</script>
+</body>
+</html>

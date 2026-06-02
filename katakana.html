@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en" style="background:#13100e;">
+<head>
+  <style>*::-webkit-scrollbar{display:none!important;width:0!important;}html,body{scrollbar-width:none!important;-ms-overflow-style:none!important;}</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Katakana — Complete Reference</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Shippori+Mincho+B1:wght@400;600;800&family=Zen+Old+Mincho:wght@400;700&family=Sawarabi+Mincho&family=M+PLUS+1p:wght@400;700&family=Kaisei+Decol:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink:#1a1410; --ink-soft:#3d352c; --paper:#f7f3ed;
+      --vermillion:#c0392b; --vermillion-soft:#e74c3c; --gold:#b8962e;
+      --tile-bg:#faf7f2; --tile-border:#d9d0c2; --shadow:rgba(26,20,16,0.08);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    body{background-color:var(--paper);color:var(--ink);font-family:'Cormorant Garamond',serif;min-height:100vh;padding:0 0 100px;position:relative;overflow-x:hidden;scrollbar-width:none;-ms-overflow-style:none;opacity:0;animation:pageFadeIn 0.5s ease forwards;}body::-webkit-scrollbar{display:none;}@keyframes pageFadeIn{from{opacity:0;}to{opacity:1;}}
+    body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(192,57,43,0.04) 0%,transparent 60%),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:0;}
+    body::after{content:'';position:fixed;top:0;left:50%;transform:translateX(-50%);width:1px;height:100%;background:linear-gradient(to bottom,transparent,var(--tile-border) 20%,var(--tile-border) 80%,transparent);opacity:0.3;pointer-events:none;z-index:0;}
+
+    .back-nav{position:relative;z-index:10;padding:24px 32px 0;}
+    .back-link{font-family:'Cormorant Garamond',serif;font-size:0.82rem;letter-spacing:0.2em;color:var(--tile-border);text-decoration:none;text-transform:uppercase;transition:color 0.3s ease;display:inline-flex;align-items:center;gap:6px;}
+    .back-link::before{content:'←';font-size:1rem;}
+    .back-link:hover{color:var(--vermillion);}
+
+    header{position:relative;z-index:1;text-align:center;padding:48px 24px 32px;}
+    .header-eyebrow{font-family:'Noto Serif JP',serif;font-weight:300;font-size:13px;letter-spacing:0.35em;color:var(--vermillion);text-transform:uppercase;margin-bottom:16px;}
+    .header-title{font-size:clamp(2.4rem,6vw,4rem);font-weight:300;letter-spacing:0.05em;line-height:1.1;color:var(--ink);margin-bottom:8px;}
+    .header-kanji{font-family:'Noto Serif JP',serif;font-weight:700;font-size:clamp(1rem,2.5vw,1.4rem);color:var(--ink-soft);letter-spacing:0.2em;margin-bottom:24px;}
+    .header-desc{font-size:1rem;font-style:italic;font-weight:300;color:var(--ink-soft);max-width:440px;margin:0 auto;line-height:1.7;}
+    .divider{width:60px;height:1px;background:var(--vermillion);margin:32px auto;position:relative;opacity:0.6;}
+    .divider::before,.divider::after{content:'';position:absolute;top:50%;transform:translateY(-50%);width:4px;height:4px;border-radius:50%;background:var(--vermillion);}
+    .divider::before{left:-8px;} .divider::after{right:-8px;}
+
+    /* ── Font picker ── */
+    .font-picker{position:relative;z-index:10;display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;padding:0 24px 12px;max-width:760px;margin:0 auto;}
+    .font-picker-label{font-size:0.62rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--tile-border);white-space:nowrap;font-family:'Lora',serif;margin-right:4px;}
+    .font-opt{padding:4px 10px;border:1px solid var(--tile-border);border-radius:5px;background:none;color:var(--ink-soft);font-size:1.1rem;cursor:pointer;transition:border-color 0.2s,color 0.2s,background 0.2s;line-height:1.4;}
+    .font-opt:hover{border-color:var(--gold);color:var(--gold);}
+    .font-opt.active{border-color:var(--vermillion);color:var(--vermillion);background:rgba(224,90,71,0.08);}
+
+    /* ── Toolbar ── */
+    .toolbar{position:relative;z-index:10;display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap;padding:0 24px 8px;max-width:760px;margin:0 auto;}
+    .slider-wrap{display:flex;align-items:center;gap:10px;}
+    .slider-label{font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--tile-border);white-space:nowrap;}
+    .font-slider{-webkit-appearance:none;appearance:none;width:100px;height:3px;background:var(--tile-border);border-radius:2px;outline:none;cursor:pointer;}
+    .font-slider::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:var(--vermillion);cursor:pointer;}
+    .quiz-link{font-family:'Cormorant Garamond',serif;font-size:0.82rem;letter-spacing:0.2em;color:#fff;background:var(--vermillion);text-decoration:none;text-transform:uppercase;padding:8px 18px;border-radius:5px;transition:opacity 0.2s;white-space:nowrap;}
+    .quiz-link:hover{opacity:0.85;}
+
+    /* ── Page switcher ── */
+    .page-switcher{position:relative;z-index:10;display:flex;justify-content:center;margin:0 auto 40px;max-width:400px;padding:0 24px;}
+    .page-btn{flex:1;background:none;border:1px solid var(--tile-border);border-right:none;padding:10px 8px;font-family:'Cormorant Garamond',serif;font-size:0.85rem;letter-spacing:0.15em;color:var(--ink-soft);cursor:pointer;transition:background 0.3s,color 0.3s,border-color 0.3s;}
+    .page-btn:first-child{border-radius:5px 0 0 5px;}
+    .page-btn:last-child{border-right:1px solid var(--tile-border);border-radius:0 5px 5px 0;}
+    .page-btn:hover{background:rgba(192,57,43,0.04);color:var(--vermillion);}
+    .page-btn.active{background:var(--vermillion);border-color:var(--vermillion);color:#fff;}
+    .page-btn.active+.page-btn{border-left-color:var(--vermillion);}
+
+    .page-section{display:none;}
+    .page-section.active{display:block;}
+
+    .chapter-heading{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;font-style:italic;color:var(--ink);text-align:center;margin:48px 0 4px;letter-spacing:0.05em;position:relative;z-index:1;}
+    .chapter-sub{font-family:'Noto Serif JP',serif;font-size:0.75rem;letter-spacing:0.25em;color:var(--tile-border);text-align:center;margin-bottom:0;position:relative;z-index:1;}
+    .section-label{font-family:'Noto Serif JP',serif;font-size:11px;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);text-align:center;margin:36px 0 14px;font-weight:400;opacity:0.85;position:relative;z-index:1;}
+
+    main{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:0 24px;}
+    .grid  {display:grid;grid-template-columns:repeat(5,1fr);gap:10px;}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:45%;margin:0 auto;}
+    .grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;max-width:30%;margin:0 auto;}
+    .grid-1{display:grid;grid-template-columns:repeat(1,1fr);gap:10px;max-width:15%;margin:0 auto;}
+    .grid-combo{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+    .grid-ext{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;}
+
+    .tile{background:var(--tile-bg);border:1px solid var(--tile-border);border-radius:6px;padding:18px 8px 14px;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:default;position:relative;transition:box-shadow 0.25s ease,border-color 0.25s ease;overflow:hidden;opacity:0;animation:fadeUp 0.5s ease forwards;}
+    
+    .tile:hover{box-shadow:0 0 0 1px var(--vermillion);border-color:var(--vermillion);z-index:2;}
+    
+    .tile-char{font-family:'Noto Serif JP',serif;font-size:2rem;font-weight:400;color:var(--ink);line-height:1;transition:color 0.25s ease;}
+    .tile:hover .tile-char{color:var(--vermillion);}
+    .tile-combo .tile-char,.tile-ext .tile-char{font-size:1.55rem;}
+    .tile-romaji{font-family:'Cormorant Garamond',serif;font-size:0.78rem;font-weight:400;letter-spacing:0.12em;color:var(--ink-soft);transition:color 0.3s ease;}
+    .tile:hover .tile-romaji{color:var(--vermillion-soft);}
+    .tile-parts{font-size:0.58rem;letter-spacing:0.08em;color:var(--tile-border);font-family:'Noto Serif JP',serif;transition:color 0.3s ease;}
+    .tile:hover .tile-parts{color:var(--gold);}
+
+    @keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+    footer{position:relative;z-index:1;text-align:center;margin-top:64px;padding:0 24px;}
+    .footer-text{font-size:0.78rem;letter-spacing:0.2em;color:var(--tile-border);font-family:'Cormorant Garamond',serif;font-style:italic;}
+    .footer-kanji{font-family:'Noto Serif JP',serif;font-size:1.2rem;color:var(--tile-border);display:block;margin-top:12px;}
+  </style>
+</head>
+<body>
+<nav class="back-nav"><a class="back-link" href="index.html">All Scripts</a></nav>
+<header>
+  <p class="header-eyebrow">Japanese Writing System</p>
+  <h1 class="header-title">Katakana</h1>
+  <p class="header-kanji">カタカナ &nbsp;·&nbsp; 片仮名</p>
+  <div class="divider"></div>
+  <p class="header-desc">The complete syllabary — basic characters, combinations, and extended foreign sounds.</p>
+</header>
+
+<div class="font-picker" id="font-picker">
+  <span class="font-picker-label">字体</span>
+  <button class="font-opt active" data-font="Shippori Mincho B1" title="Shippori" style="font-family:'Shippori Mincho B1',serif;font-weight:800;">ア</button>
+  <button class="font-opt" data-font="Noto Serif JP" title="Noto" style="font-family:'Noto Serif JP',serif;font-weight:400;">ア</button>
+  <button class="font-opt" data-font="Zen Old Mincho" title="Zen Old" style="font-family:'Zen Old Mincho',serif;font-weight:700;">ア</button>
+  <button class="font-opt" data-font="Sawarabi Mincho" title="Sawarabi" style="font-family:'Sawarabi Mincho',serif;">ア</button>
+  <button class="font-opt" data-font="M PLUS 1p" title="M PLUS" style="font-family:'M PLUS 1p',sans-serif;font-weight:700;">ア</button>
+  <button class="font-opt" data-font="Kaisei Decol" title="Kaisei" style="font-family:'Kaisei Decol',serif;font-weight:700;">ア</button>
+</div>
+
+<nav class="page-switcher">
+  <button class="page-btn active" onclick="switchPage('standard',this)">Standard</button>
+  <button class="page-btn" onclick="switchPage('extended',this)">Extended Sounds</button>
+</nav>
+
+<div class="toolbar">
+  <div class="slider-wrap">
+    <span class="slider-label">ア Size</span>
+    <input class="font-slider" type="range" min="1" max="3" step="0.1" value="2" id="font-slider" />
+  </div>
+  <a class="quiz-link" href="quiz_katakana.html">✏ Take Quiz</a>
+</div>
+
+<main>
+
+  <!-- ══ STANDARD PAGE ══ -->
+  <div class="page-section active" id="standard">
+    <p class="chapter-heading">Basic Characters</p>
+    <p class="chapter-sub">基本字 · 46 characters</p>
+    <p class="section-label">Vowels — 母音</p><div class="grid" id="vowels"></div>
+    <p class="section-label">K · S · T · N rows</p><div class="grid" id="krow"></div>
+    <p class="section-label">H · M rows</p><div class="grid" id="hrow"></div>
+    <p class="section-label">Y row — 半母音</p><div class="grid-3" id="yrow"></div>
+    <p class="section-label">R row — 流音</p><div class="grid" id="rrow"></div>
+    <p class="section-label">W row</p><div class="grid-2" id="wrow"></div>
+    <p class="section-label">Nasal — 撥音</p><div class="grid-1" id="nrow"></div>
+    <p class="chapter-heading">Combination Sounds</p>
+    <p class="chapter-sub">拗音 yōon · consonant + small ya / yu / yo</p>
+    <p class="section-label">K combinations</p><div class="grid-combo" id="comb-k"></div>
+    <p class="section-label">G combinations</p><div class="grid-combo" id="comb-g"></div>
+    <p class="section-label">SH combinations</p><div class="grid-combo" id="comb-sh"></div>
+    <p class="section-label">J combinations</p><div class="grid-combo" id="comb-j"></div>
+    <p class="section-label">CH combinations</p><div class="grid-combo" id="comb-ch"></div>
+    <p class="section-label">N combinations</p><div class="grid-combo" id="comb-n"></div>
+    <p class="section-label">H combinations</p><div class="grid-combo" id="comb-h"></div>
+    <p class="section-label">B combinations</p><div class="grid-combo" id="comb-b"></div>
+    <p class="section-label">P combinations</p><div class="grid-combo" id="comb-p"></div>
+    <p class="section-label">M combinations</p><div class="grid-combo" id="comb-m"></div>
+    <p class="section-label">R combinations</p><div class="grid-combo" id="comb-r"></div>
+  </div>
+
+  <!-- ══ EXTENDED PAGE ══ -->
+  <div class="page-section" id="extended">
+    <p class="chapter-heading">Extended Sounds</p>
+    <p class="chapter-sub">拡張仮名 · used for foreign loanwords</p>
+
+    <p class="section-label">F sounds — ファ行</p>
+    <div class="grid-ext" id="ext-f"></div>
+
+    <p class="section-label">V sounds — ヴ行</p>
+    <div class="grid-ext" id="ext-v"></div>
+
+    <p class="section-label">T / D extended — T・D拡張</p>
+    <div class="grid-ext" id="ext-td"></div>
+
+    <p class="section-label">W sounds — W行</p>
+    <div class="grid-ext" id="ext-w"></div>
+
+    <p class="section-label">SH / J / CH extended</p>
+    <div class="grid-ext" id="ext-sjc"></div>
+
+    <p class="section-label">Y extended — イェ</p>
+    <div class="grid-ext" id="ext-y"></div>
+
+    <p class="section-label">TS extended — ツァ行</p>
+    <div class="grid-ext" id="ext-ts"></div>
+
+    <p class="section-label">KW sounds — クァ行</p>
+    <div class="grid-ext" id="ext-kw"></div>
+
+    <p class="section-label">GW sounds — グァ行</p>
+    <div class="grid-ext" id="ext-gw"></div>
+
+    <p class="section-label">S / Z extended — スィ・ズィ</p>
+    <div class="grid-ext" id="ext-sz"></div>
+  </div>
+
+</main>
+
+<footer><div class="divider"></div><p class="footer-text">Learn the sounds, feel the language</p><span class="footer-kanji">言葉</span></footer>
+
+<script>
+function switchPage(id, btn) {
+  document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.page-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ── Standard data ──
+const basic = {
+  vowels:[{char:'ア',romaji:'a'},{char:'イ',romaji:'i'},{char:'ウ',romaji:'u'},{char:'エ',romaji:'e'},{char:'オ',romaji:'o'}],
+  krow:[
+    {char:'カ',romaji:'ka'},{char:'キ',romaji:'ki'},{char:'ク',romaji:'ku'},{char:'ケ',romaji:'ke'},{char:'コ',romaji:'ko'},
+    {char:'サ',romaji:'sa'},{char:'シ',romaji:'shi'},{char:'ス',romaji:'su'},{char:'セ',romaji:'se'},{char:'ソ',romaji:'so'},
+    {char:'タ',romaji:'ta'},{char:'チ',romaji:'chi'},{char:'ツ',romaji:'tsu'},{char:'テ',romaji:'te'},{char:'ト',romaji:'to'},
+    {char:'ナ',romaji:'na'},{char:'ニ',romaji:'ni'},{char:'ヌ',romaji:'nu'},{char:'ネ',romaji:'ne'},{char:'ノ',romaji:'no'},
+  ],
+  hrow:[
+    {char:'ハ',romaji:'ha'},{char:'ヒ',romaji:'hi'},{char:'フ',romaji:'fu'},{char:'ヘ',romaji:'he'},{char:'ホ',romaji:'ho'},
+    {char:'マ',romaji:'ma'},{char:'ミ',romaji:'mi'},{char:'ム',romaji:'mu'},{char:'メ',romaji:'me'},{char:'モ',romaji:'mo'},
+  ],
+  yrow:[{char:'ヤ',romaji:'ya'},{char:'ユ',romaji:'yu'},{char:'ヨ',romaji:'yo'}],
+  rrow:[{char:'ラ',romaji:'ra'},{char:'リ',romaji:'ri'},{char:'ル',romaji:'ru'},{char:'レ',romaji:'re'},{char:'ロ',romaji:'ro'}],
+  wrow:[{char:'ワ',romaji:'wa'},{char:'ヲ',romaji:'wo'}],
+  nrow:[{char:'ン',romaji:'n'}],
+};
+const combos = {
+  'comb-k': [{char:'キャ',romaji:'kya',parts:'キ＋ャ'},{char:'キュ',romaji:'kyu',parts:'キ＋ュ'},{char:'キョ',romaji:'kyo',parts:'キ＋ョ'}],
+  'comb-g': [{char:'ギャ',romaji:'gya',parts:'ギ＋ャ'},{char:'ギュ',romaji:'gyu',parts:'ギ＋ュ'},{char:'ギョ',romaji:'gyo',parts:'ギ＋ョ'}],
+  'comb-sh':[{char:'シャ',romaji:'sha',parts:'シ＋ャ'},{char:'シュ',romaji:'shu',parts:'シ＋ュ'},{char:'ショ',romaji:'sho',parts:'シ＋ョ'}],
+  'comb-j': [{char:'ジャ',romaji:'ja', parts:'ジ＋ャ'},{char:'ジュ',romaji:'ju', parts:'ジ＋ュ'},{char:'ジョ',romaji:'jo', parts:'ジ＋ョ'}],
+  'comb-ch':[{char:'チャ',romaji:'cha',parts:'チ＋ャ'},{char:'チュ',romaji:'chu',parts:'チ＋ュ'},{char:'チョ',romaji:'cho',parts:'チ＋ョ'}],
+  'comb-n': [{char:'ニャ',romaji:'nya',parts:'ニ＋ャ'},{char:'ニュ',romaji:'nyu',parts:'ニ＋ュ'},{char:'ニョ',romaji:'nyo',parts:'ニ＋ョ'}],
+  'comb-h': [{char:'ヒャ',romaji:'hya',parts:'ヒ＋ャ'},{char:'ヒュ',romaji:'hyu',parts:'ヒ＋ュ'},{char:'ヒョ',romaji:'hyo',parts:'ヒ＋ョ'}],
+  'comb-b': [{char:'ビャ',romaji:'bya',parts:'ビ＋ャ'},{char:'ビュ',romaji:'byu',parts:'ビ＋ュ'},{char:'ビョ',romaji:'byo',parts:'ビ＋ョ'}],
+  'comb-p': [{char:'ピャ',romaji:'pya',parts:'ピ＋ャ'},{char:'ピュ',romaji:'pyu',parts:'ピ＋ュ'},{char:'ピョ',romaji:'pyo',parts:'ピ＋ョ'}],
+  'comb-m': [{char:'ミャ',romaji:'mya',parts:'ミ＋ャ'},{char:'ミュ',romaji:'myu',parts:'ミ＋ュ'},{char:'ミョ',romaji:'myo',parts:'ミ＋ョ'}],
+  'comb-r': [{char:'リャ',romaji:'rya',parts:'リ＋ャ'},{char:'リュ',romaji:'ryu',parts:'リ＋ュ'},{char:'リョ',romaji:'ryo',parts:'リ＋ョ'}],
+};
+
+// ── Extended data (Katakana — most complete set) ──
+const extended = {
+  'ext-f':  [
+    {char:'ファ',romaji:'fa', parts:'フ＋ァ'},
+    {char:'フィ',romaji:'fi', parts:'フ＋ィ'},
+    {char:'フェ',romaji:'fe', parts:'フ＋ェ'},
+    {char:'フォ',romaji:'fo', parts:'フ＋ォ'},
+    {char:'フュ',romaji:'fyu',parts:'フ＋ュ'},
+  ],
+  'ext-v':  [
+    {char:'ヴァ',romaji:'va', parts:'ヴ＋ァ'},
+    {char:'ヴィ',romaji:'vi', parts:'ヴ＋ィ'},
+    {char:'ヴ',  romaji:'vu', parts:'ヴ'},
+    {char:'ヴェ',romaji:'ve', parts:'ヴ＋ェ'},
+    {char:'ヴォ',romaji:'vo', parts:'ヴ＋ォ'},
+  ],
+  'ext-td': [
+    {char:'ティ',romaji:'ti', parts:'テ＋ィ'},
+    {char:'トゥ',romaji:'tu', parts:'ト＋ゥ'},
+    {char:'ディ',romaji:'di', parts:'デ＋ィ'},
+    {char:'ドゥ',romaji:'du', parts:'ド＋ゥ'},
+  ],
+  'ext-w':  [
+    {char:'ウィ',romaji:'wi', parts:'ウ＋ィ'},
+    {char:'ウェ',romaji:'we', parts:'ウ＋ェ'},
+    {char:'ウォ',romaji:'wo', parts:'ウ＋ォ'},
+  ],
+  'ext-sjc':[
+    {char:'シェ',romaji:'she',parts:'シ＋ェ'},
+    {char:'ジェ',romaji:'je', parts:'ジ＋ェ'},
+    {char:'チェ',romaji:'che',parts:'チ＋ェ'},
+  ],
+  'ext-y':  [
+    {char:'イェ',romaji:'ye', parts:'イ＋ェ'},
+  ],
+  'ext-ts': [
+    {char:'ツァ',romaji:'tsa',parts:'ツ＋ァ'},
+    {char:'ツィ',romaji:'tsi',parts:'ツ＋ィ'},
+    {char:'ツェ',romaji:'tse',parts:'ツ＋ェ'},
+    {char:'ツォ',romaji:'tso',parts:'ツ＋ォ'},
+  ],
+  'ext-kw': [
+    {char:'クァ',romaji:'kwa',parts:'ク＋ァ'},
+    {char:'クィ',romaji:'kwi',parts:'ク＋ィ'},
+    {char:'クェ',romaji:'kwe',parts:'ク＋ェ'},
+    {char:'クォ',romaji:'kwo',parts:'ク＋ォ'},
+  ],
+  'ext-gw': [
+    {char:'グァ',romaji:'gwa',parts:'グ＋ァ'},
+  ],
+  'ext-sz': [
+    {char:'スィ',romaji:'si', parts:'ス＋ィ'},
+    {char:'ズィ',romaji:'zi', parts:'ズ＋ィ'},
+  ],
+};
+
+let delay = 0;
+function buildBasic(id, data) {
+  const el = document.getElementById(id);
+  data.forEach(item => {
+    const t = document.createElement('div'); t.className = 'tile'; t.style.animationDelay = `${delay}ms`; delay += 38;
+    t.innerHTML = `<span class="tile-char">${item.char}</span><span class="tile-romaji">${item.romaji}</span>`;
+    el.appendChild(t);
+  });
+}
+function buildCombo(id, data) {
+  const el = document.getElementById(id);
+  data.forEach(item => {
+    const t = document.createElement('div'); t.className = 'tile tile-combo'; t.style.animationDelay = `${delay}ms`; delay += 38;
+    t.innerHTML = `<span class="tile-char">${item.char}</span><span class="tile-romaji">${item.romaji}</span><span class="tile-parts">${item.parts}</span>`;
+    el.appendChild(t);
+  });
+}
+function buildExt(id, data) {
+  const el = document.getElementById(id);
+  data.forEach((item, i) => {
+    const t = document.createElement('div'); t.className = 'tile tile-ext'; t.style.animationDelay = `${i * 50}ms`;
+    t.innerHTML = `<span class="tile-char">${item.char}</span><span class="tile-romaji">${item.romaji}</span><span class="tile-parts">${item.parts}</span>`;
+    el.appendChild(t);
+  });
+}
+
+Object.entries(basic).forEach(([id, data]) => buildBasic(id, data));
+Object.entries(combos).forEach(([id, data]) => buildCombo(id, data));
+Object.entries(extended).forEach(([id, data]) => buildExt(id, data));
+
+// ── Font picker ──
+const fontOpts = document.querySelectorAll('.font-opt');
+let fontStyleEl = document.createElement('style');
+document.head.appendChild(fontStyleEl);
+
+function applyCharFont(font) {
+  fontStyleEl.textContent = `.tile-char { font-family: '${font}', serif !important; }`;
+  localStorage.setItem('kataCharFont', font);
+}
+fontOpts.forEach(btn => {
+  btn.addEventListener('click', () => {
+    fontOpts.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    applyCharFont(btn.dataset.font);
+  });
+});
+const savedCharFont = localStorage.getItem('kataCharFont') || 'Shippori Mincho B1';
+applyCharFont(savedCharFont);
+const savedBtn = [...fontOpts].find(b => b.dataset.font === savedCharFont);
+if (savedBtn) { fontOpts.forEach(b => b.classList.remove('active')); savedBtn.classList.add('active'); }
+
+// ── Font size slider ──
+const slider = document.getElementById('font-slider');
+function applyFontSize(val) {
+  document.querySelectorAll('.tile-char').forEach(el => el.style.fontSize = val + 'rem');
+}
+slider.addEventListener('input', () => {
+  applyFontSize(parseFloat(slider.value));
+  localStorage.setItem('kataFontSize', slider.value);
+});
+const savedFont = localStorage.getItem('kataFontSize');
+if (savedFont) { slider.value = savedFont; applyFontSize(parseFloat(savedFont)); }
+</script>
+<script src="backgrounds.js"></script>
+<script src="nav.js"></script>
+<script>
+  // Fade out when navigating away
+  document.querySelector('.back-link').addEventListener('click', e => {
+    e.preventDefault();
+    const href = e.currentTarget.getAttribute('href');
+    document.body.style.transition = 'opacity 0.4s ease';
+    document.body.style.opacity = '0';
+    setTimeout(() => { location.href = href; }, 420);
+  });
+</script>
+<script src="titlebar.js"></script>
+<script src="darkmode.js"></script>
+</body>
+</html>
