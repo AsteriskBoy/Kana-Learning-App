@@ -48,12 +48,12 @@
     .q-opt{flex:1;min-width:60px;padding:10px 6px;background:var(--tile-bg);border:1px solid var(--tile-border);border-radius:6px;font-family:'Cormorant Garamond',serif;font-size:1rem;letter-spacing:0.08em;color:var(--ink-soft);cursor:pointer;text-align:center;transition:all 0.25s;}
     .q-opt:hover{border-color:var(--vermillion);color:var(--vermillion);}
     .q-opt.selected{background:var(--vermillion);border-color:var(--vermillion);color:#fff;}
-    .type-options{display:flex;gap:10px;}
-    .type-opt{flex:1;padding:12px 8px;background:var(--tile-bg);border:1px solid var(--tile-border);border-radius:6px;font-family:'Cormorant Garamond',serif;font-size:0.9rem;letter-spacing:0.05em;color:var(--ink-soft);cursor:pointer;text-align:center;transition:all 0.25s;}
+    .type-options{display:flex;gap:10px;flex-wrap:wrap;}
+    .type-opt{flex:1;min-width:90px;padding:12px 8px;background:var(--tile-bg);border:1px solid var(--tile-border);border-radius:6px;font-family:'Cormorant Garamond',serif;font-size:0.9rem;letter-spacing:0.05em;color:var(--ink-soft);cursor:pointer;text-align:center;transition:all 0.25s;}
     .type-opt:hover{border-color:var(--vermillion);color:var(--vermillion);}
     .type-opt.selected{background:var(--vermillion);border-color:var(--vermillion);color:#fff;}
     .type-opt .type-kana{display:block;font-family:'Noto Serif JP',serif;font-size:1.4rem;font-weight:700;margin-bottom:4px;}
-    .type-opt .type-name{font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;}
+    .type-opt .type-name{font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;}
     .start-btn{width:100%;padding:16px;background:var(--vermillion);border:none;border-radius:8px;font-family:'Cormorant Garamond',serif;font-size:1.1rem;letter-spacing:0.2em;color:#fff;cursor:pointer;text-transform:uppercase;transition:opacity 0.2s,transform 0.2s;margin-top:8px;}
     .start-btn:hover{opacity:0.88;transform:translateY(-2px);}
 
@@ -171,15 +171,17 @@
       <div class="q-opt" data-q="10">10</div>
       <div class="q-opt selected" data-q="15">15</div>
       <div class="q-opt" data-q="25">25</div>
-      <div class="q-opt" data-q="46">46 · All</div>
+      <div class="q-opt" data-q="50">50</div>
+      <div class="q-opt" data-q="999">All</div>
     </div>
   </div>
   <div class="setup-section">
     <span class="setup-label">Character set</span>
     <div class="type-options">
-      <div class="type-opt selected" data-type="basic"><span class="type-kana">あ</span><span class="type-name">Basic 46</span></div>
-      <div class="type-opt" data-type="combos"><span class="type-kana">きゃ</span><span class="type-name">Combinations</span></div>
-      <div class="type-opt" data-type="all"><span class="type-kana">全</span><span class="type-name">All</span></div>
+      <div class="type-opt selected" data-type="basic"><span class="type-kana">あ</span><span class="type-name">Basic (46)</span></div>
+      <div class="type-opt" data-type="dakuten"><span class="type-kana">が</span><span class="type-name">Dakuten (25)</span></div>
+      <div class="type-opt" data-type="combos"><span class="type-kana">きゃ</span><span class="type-name">Combos (33)</span></div>
+      <div class="type-opt" data-type="all"><span class="type-kana">全</span><span class="type-name">All (104)</span></div>
     </div>
   </div>
   <button class="start-btn" id="start-btn">Start Quiz →</button>
@@ -195,7 +197,8 @@
     <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
   </div>
   <div class="quiz-card" id="quiz-card">
-    <div class="quiz-char" id="quiz-char">あ</div>
+    <div class="quiz-char" id="quiz-char" title="Click to hear pronunciation">あ</div>
+    <button class="quiz-audio-btn" id="quiz-audio-btn" type="button" title="Listen to pronunciation">🔊</button>
     <div class="quiz-hint">Type the romaji · Press Enter to confirm</div>
     <div class="quiz-input-wrap">
       <input class="quiz-input" id="quiz-input" type="text" placeholder="romaji..." autocomplete="off" autocorrect="off" spellcheck="false" />
@@ -268,21 +271,28 @@ const HIST_KEY  = 'quizHistory_h';
 const basicChars = [
   {char:'あ',romaji:'a'},{char:'い',romaji:'i'},{char:'う',romaji:'u'},{char:'え',romaji:'e'},{char:'お',romaji:'o'},
   {char:'か',romaji:'ka'},{char:'き',romaji:'ki'},{char:'く',romaji:'ku'},{char:'け',romaji:'ke'},{char:'こ',romaji:'ko'},
-  {char:'さ',romaji:'sa'},{char:'し',romaji:'shi'},{char:'す',romaji:'su'},{char:'せ',romaji:'se'},{char:'そ',romaji:'so'},
-  {char:'た',romaji:'ta'},{char:'ち',romaji:'chi'},{char:'つ',romaji:'tsu'},{char:'て',romaji:'te'},{char:'と',romaji:'to'},
+  {char:'さ',romaji:'sa'},{char:'し',romaji:'shi',alt:['si']},{char:'す',romaji:'su'},{char:'せ',romaji:'se'},{char:'そ',romaji:'so'},
+  {char:'た',romaji:'ta'},{char:'ち',romaji:'chi',alt:['ti']},{char:'つ',romaji:'tsu',alt:['tu']},{char:'て',romaji:'te'},{char:'と',romaji:'to'},
   {char:'な',romaji:'na'},{char:'に',romaji:'ni'},{char:'ぬ',romaji:'nu'},{char:'ね',romaji:'ne'},{char:'の',romaji:'no'},
-  {char:'は',romaji:'ha'},{char:'ひ',romaji:'hi'},{char:'ふ',romaji:'fu'},{char:'へ',romaji:'he'},{char:'ほ',romaji:'ho'},
+  {char:'は',romaji:'ha'},{char:'ひ',romaji:'hi'},{char:'ふ',romaji:'fu',alt:['hu']},{char:'へ',romaji:'he'},{char:'ほ',romaji:'ho'},
   {char:'ま',romaji:'ma'},{char:'み',romaji:'mi'},{char:'む',romaji:'mu'},{char:'め',romaji:'me'},{char:'も',romaji:'mo'},
   {char:'や',romaji:'ya'},{char:'ゆ',romaji:'yu'},{char:'よ',romaji:'yo'},
   {char:'ら',romaji:'ra'},{char:'り',romaji:'ri'},{char:'る',romaji:'ru'},{char:'れ',romaji:'re'},{char:'ろ',romaji:'ro'},
-  {char:'わ',romaji:'wa'},{char:'を',romaji:'wo'},{char:'ん',romaji:'n'},
+  {char:'わ',romaji:'wa'},{char:'を',romaji:'wo',alt:['o']},{char:'ん',romaji:'n',alt:['nn']},
+];
+const dakutenChars = [
+  {char:'が',romaji:'ga'},{char:'ぎ',romaji:'gi'},{char:'ぐ',romaji:'gu'},{char:'げ',romaji:'ge'},{char:'ご',romaji:'go'},
+  {char:'ざ',romaji:'za'},{char:'じ',romaji:'ji',alt:['zi']},{char:'ず',romaji:'zu',alt:['dzu']},{char:'ぜ',romaji:'ze'},{char:'ぞ',romaji:'zo'},
+  {char:'だ',romaji:'da'},{char:'ぢ',romaji:'ji',alt:['di','dji']},{char:'づ',romaji:'zu',alt:['du','dzu','tsu']},{char:'で',romaji:'de'},{char:'ど',romaji:'do'},
+  {char:'ば',romaji:'ba'},{char:'び',romaji:'bi'},{char:'ぶ',romaji:'bu'},{char:'べ',romaji:'be'},{char:'ぼ',romaji:'bo'},
+  {char:'ぱ',romaji:'pa'},{char:'ぴ',romaji:'pi'},{char:'ぷ',romaji:'pu'},{char:'ぺ',romaji:'pe'},{char:'ぽ',romaji:'po'},
 ];
 const comboChars = [
   {char:'きゃ',romaji:'kya'},{char:'きゅ',romaji:'kyu'},{char:'きょ',romaji:'kyo'},
   {char:'ぎゃ',romaji:'gya'},{char:'ぎゅ',romaji:'gyu'},{char:'ぎょ',romaji:'gyo'},
-  {char:'しゃ',romaji:'sha'},{char:'しゅ',romaji:'shu'},{char:'しょ',romaji:'sho'},
-  {char:'じゃ',romaji:'ja'},{char:'じゅ',romaji:'ju'},{char:'じょ',romaji:'jo'},
-  {char:'ちゃ',romaji:'cha'},{char:'ちゅ',romaji:'chu'},{char:'ちょ',romaji:'cho'},
+  {char:'しゃ',romaji:'sha',alt:['sya']},{char:'しゅ',romaji:'shu',alt:['syu']},{char:'しょ',romaji:'sho',alt:['syo']},
+  {char:'じゃ',romaji:'ja',alt:['zya','jya']},{char:'じゅ',romaji:'ju',alt:['zyu','jyu']},{char:'じょ',romaji:'jo',alt:['zyo','jyo']},
+  {char:'ちゃ',romaji:'cha',alt:['tya','cya']},{char:'ちゅ',romaji:'chu',alt:['tyu','cyu']},{char:'ちょ',romaji:'cho',alt:['tyo','cyo']},
   {char:'にゃ',romaji:'nya'},{char:'にゅ',romaji:'nyu'},{char:'にょ',romaji:'nyo'},
   {char:'ひゃ',romaji:'hya'},{char:'ひゅ',romaji:'hyu'},{char:'ひょ',romaji:'hyo'},
   {char:'びゃ',romaji:'bya'},{char:'びゅ',romaji:'byu'},{char:'びょ',romaji:'byo'},
@@ -325,8 +335,12 @@ function shuffle(arr) {
 }
 
 function startQuiz() {
-  let pool = selectedType==='basic' ? basicChars : selectedType==='combos' ? comboChars : [...basicChars,...comboChars];
-  questions = shuffle(pool).slice(0, Math.min(selectedQ, pool.length));
+  let pool = selectedType==='basic' ? basicChars
+    : selectedType==='dakuten' ? dakutenChars
+    : selectedType==='combos' ? comboChars
+    : [...basicChars, ...dakutenChars, ...comboChars];
+  const qCount = selectedQ >= 900 ? pool.length : Math.min(selectedQ, pool.length);
+  questions = shuffle(pool).slice(0, qCount);
   lastConfig = {q:selectedQ, type:selectedType};
   qIndex=0; correct=0; wrong=0; mistakes=[]; answered=false; startTime=Date.now();
   show('quiz-screen'); renderQuestion();
@@ -362,7 +376,7 @@ function submitAnswer() {
   if (!answer) return;
   const q = questions[qIndex];
   answered=true;
-  const isCorrect = answer === q.romaji;
+  const isCorrect = answer === q.romaji || (Array.isArray(q.alt) && q.alt.includes(answer));
   if (isCorrect) {
     correct++;
     document.getElementById('quiz-card').classList.add('correct');
@@ -377,6 +391,9 @@ function submitAnswer() {
     document.getElementById('quiz-feedback').innerHTML=`✗ Wrong — <span class="correct-ans">${q.romaji}</span>`;
     document.getElementById('quiz-feedback').className='quiz-feedback wrong';
   }
+  if (window.speakKana) {
+    window.speakKana(q.char, document.getElementById('quiz-audio-btn'));
+  }
   document.getElementById('live-correct').textContent=correct;
   document.getElementById('live-wrong').textContent=wrong;
   document.getElementById('quiz-next-btn').classList.add('visible');
@@ -390,6 +407,16 @@ function nextQuestion() {
 
 document.getElementById('quiz-input').addEventListener('keydown', e=>{ if(e.key==='Enter') submitAnswer(); });
 document.getElementById('quiz-next-btn').addEventListener('click', nextQuestion);
+document.getElementById('quiz-char').addEventListener('click', () => {
+  if (window.speakKana && questions[qIndex]) {
+    window.speakKana(questions[qIndex].char, document.getElementById('quiz-audio-btn'));
+  }
+});
+document.getElementById('quiz-audio-btn').addEventListener('click', () => {
+  if (window.speakKana && questions[qIndex]) {
+    window.speakKana(questions[qIndex].char, document.getElementById('quiz-audio-btn'));
+  }
+});
 
 function showResults() {
   const elapsed = Math.round((Date.now()-startTime)/1000);
@@ -462,9 +489,9 @@ function buildMistakes() {
     body.innerHTML='<div class="mistakes-none">🎉 No mistakes — flawless!</div>';
     return;
   }
-  let html='<table class="mistakes-table"><thead><tr><th>Character</th><th>Your answer</th><th>Correct</th></tr></thead><tbody>';
+  let html='<table class="mistakes-table"><thead><tr><th>Character</th><th>Your answer</th><th>Correct</th><th>Listen</th></tr></thead><tbody>';
   mistakes.forEach(m=>{
-    html+=`<tr><td><span class="m-char">${m.char}</span></td><td><span class="m-user">${m.userAnswer || '—'}</span></td><td><span class="m-correct">${m.correct}</span></td></tr>`;
+    html+=`<tr><td><span class="m-char">${m.char}</span></td><td><span class="m-user">${m.userAnswer || '—'}</span></td><td><span class="m-correct">${m.correct}</span></td><td><button class="quiz-audio-btn" style="width:28px;height:28px;font-size:0.85rem;margin:0;" onclick="window.speakKana('${m.char}', this)" title="Listen">🔊</button></td></tr>`;
   });
   html+='</tbody></table>';
   body.innerHTML=html;
@@ -476,6 +503,7 @@ function playAgain() { selectedQ=lastConfig.q; selectedType=lastConfig.type; sta
 const dm=localStorage.getItem('dm'); if(dm==='1') document.body.classList.add('dark');
 
 </script>
+<script src="audio.js"></script>
 <script src="backgrounds.js"></script>
 <script src="nav.js"></script>
 <script src="titlebar.js"></script>

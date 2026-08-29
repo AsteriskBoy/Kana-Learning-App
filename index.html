@@ -99,9 +99,33 @@
       margin-top: 64px; font-size: 0.72rem; letter-spacing: 0.2em; color: var(--tile-border);
       font-style: italic; text-align: center;
     }
+
+    /* ── Sakura petals ── */
+    .sakura-layer {
+      position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
+    }
+    .petal {
+      position: absolute; top: -10%;
+      background: radial-gradient(circle at 30% 30%, #ffd9e6, #f7b8cf 55%, #e8a0bd 100%);
+      border-radius: 140% 0% 140% 0%;
+      opacity: 0.75;
+      will-change: transform;
+      animation-name: petal-fall, petal-sway;
+      animation-timing-function: linear, ease-in-out;
+      animation-iteration-count: infinite, infinite;
+    }
+    @keyframes petal-fall {
+      0%   { transform: translateY(-10vh) rotate(0deg); }
+      100% { transform: translateY(110vh) rotate(420deg); }
+    }
+    @keyframes petal-sway {
+      0%, 100% { margin-left: 0px; }
+      50%      { margin-left: 60px; }
+    }
   </style>
 </head>
 <body>
+  <div class="sakura-layer" id="sakura-layer"></div>
   <span class="corner corner-tl">仮</span>
   <span class="corner corner-br">名</span>
   <div class="rule"></div>
@@ -127,6 +151,34 @@
 <script src="titlebar.js"></script>
 <script src="darkmode.js"></script>
 <script>
+  // ── Falling sakura petals ──
+  (function () {
+    const layer = document.getElementById('sakura-layer');
+    const COUNT = 22;
+    for (let i = 0; i < COUNT; i++) {
+      const petal = document.createElement('div');
+      petal.className = 'petal';
+
+      const size = 10 + Math.random() * 12;           // 10–22px
+      const left = Math.random() * 100;                 // vw
+      const fallDuration = 11 + Math.random() * 10;      // 11–21s, slow drift
+      const swayDuration = 3 + Math.random() * 3;         // 3–6s
+      const delay = -Math.random() * 20;                  // negative delay: pre-populate sky
+      const rotate = Math.random() * 360;
+      const opacity = 0.5 + Math.random() * 0.35;
+
+      petal.style.width = size + 'px';
+      petal.style.height = size * 0.8 + 'px';
+      petal.style.left = left + 'vw';
+      petal.style.opacity = opacity;
+      petal.style.transform = `rotate(${rotate}deg)`;
+      petal.style.animationDuration = `${fallDuration}s, ${swayDuration}s`;
+      petal.style.animationDelay = `${delay}s, ${delay}s`;
+
+      layer.appendChild(petal);
+    }
+  })();
+
   document.querySelectorAll('.card').forEach(card => {
     card.addEventListener('click', e => {
       e.preventDefault();

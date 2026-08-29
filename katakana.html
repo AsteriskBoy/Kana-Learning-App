@@ -31,19 +31,9 @@
     .divider::before,.divider::after{content:'';position:absolute;top:50%;transform:translateY(-50%);width:4px;height:4px;border-radius:50%;background:var(--vermillion);}
     .divider::before{left:-8px;} .divider::after{right:-8px;}
 
-    /* ── Font picker ── */
-    .font-picker{position:relative;z-index:10;display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;padding:0 24px 12px;max-width:760px;margin:0 auto;}
-    .font-picker-label{font-size:0.62rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--tile-border);white-space:nowrap;font-family:'Lora',serif;margin-right:4px;}
-    .font-opt{padding:4px 10px;border:1px solid var(--tile-border);border-radius:5px;background:none;color:var(--ink-soft);font-size:1.1rem;cursor:pointer;transition:border-color 0.2s,color 0.2s,background 0.2s;line-height:1.4;}
-    .font-opt:hover{border-color:var(--gold);color:var(--gold);}
-    .font-opt.active{border-color:var(--vermillion);color:var(--vermillion);background:rgba(224,90,71,0.08);}
 
     /* ── Toolbar ── */
     .toolbar{position:relative;z-index:10;display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap;padding:0 24px 8px;max-width:760px;margin:0 auto;}
-    .slider-wrap{display:flex;align-items:center;gap:10px;}
-    .slider-label{font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--tile-border);white-space:nowrap;}
-    .font-slider{-webkit-appearance:none;appearance:none;width:100px;height:3px;background:var(--tile-border);border-radius:2px;outline:none;cursor:pointer;}
-    .font-slider::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:var(--vermillion);cursor:pointer;}
     .quiz-link{font-family:'Cormorant Garamond',serif;font-size:0.82rem;letter-spacing:0.2em;color:#fff;background:var(--vermillion);text-decoration:none;text-transform:uppercase;padding:8px 18px;border-radius:5px;transition:opacity 0.2s;white-space:nowrap;}
     .quiz-link:hover{opacity:0.85;}
 
@@ -99,27 +89,18 @@
   <p class="header-desc">The complete syllabary — basic characters, combinations, and extended foreign sounds.</p>
 </header>
 
-<div class="font-picker" id="font-picker">
-  <span class="font-picker-label">字体</span>
-  <button class="font-opt active" data-font="Shippori Mincho B1" title="Shippori" style="font-family:'Shippori Mincho B1',serif;font-weight:800;">ア</button>
-  <button class="font-opt" data-font="Noto Serif JP" title="Noto" style="font-family:'Noto Serif JP',serif;font-weight:400;">ア</button>
-  <button class="font-opt" data-font="Zen Old Mincho" title="Zen Old" style="font-family:'Zen Old Mincho',serif;font-weight:700;">ア</button>
-  <button class="font-opt" data-font="Sawarabi Mincho" title="Sawarabi" style="font-family:'Sawarabi Mincho',serif;">ア</button>
-  <button class="font-opt" data-font="M PLUS 1p" title="M PLUS" style="font-family:'M PLUS 1p',sans-serif;font-weight:700;">ア</button>
-  <button class="font-opt" data-font="Kaisei Decol" title="Kaisei" style="font-family:'Kaisei Decol',serif;font-weight:700;">ア</button>
-</div>
-
 <nav class="page-switcher">
   <button class="page-btn active" onclick="switchPage('standard',this)">Standard</button>
   <button class="page-btn" onclick="switchPage('extended',this)">Extended Sounds</button>
 </nav>
 
 <div class="toolbar">
-  <div class="slider-wrap">
-    <span class="slider-label">ア Size</span>
-    <input class="font-slider" type="range" min="1" max="3" step="0.1" value="2" id="font-slider" />
-  </div>
   <a class="quiz-link" href="quiz_katakana.html">✏ Take Quiz</a>
+</div>
+
+<div class="audio-hint-bar">
+  <span>🔊</span>
+  <span>Click any character block to hear pronunciation</span>
 </div>
 
 <main>
@@ -135,6 +116,11 @@
     <p class="section-label">R row — 流音</p><div class="grid" id="rrow"></div>
     <p class="section-label">W row</p><div class="grid-2" id="wrow"></div>
     <p class="section-label">Nasal — 撥音</p><div class="grid-1" id="nrow"></div>
+    <p class="chapter-heading">Voiced & Semi-Voiced Sounds</p>
+    <p class="chapter-sub">濁音 · 半濁音 · 25 characters</p>
+    <p class="section-label">G · Z rows — 濁音</p><div class="grid" id="gzrow"></div>
+    <p class="section-label">D · B rows — 濁音</p><div class="grid" id="dbrow"></div>
+    <p class="section-label">P row — 半濁音</p><div class="grid" id="prow"></div>
     <p class="chapter-heading">Combination Sounds</p>
     <p class="chapter-sub">拗音 yōon · consonant + small ya / yu / yo</p>
     <p class="section-label">K combinations</p><div class="grid-combo" id="comb-k"></div>
@@ -217,6 +203,19 @@ const basic = {
   wrow:[{char:'ワ',romaji:'wa'},{char:'ヲ',romaji:'wo'}],
   nrow:[{char:'ン',romaji:'n'}],
 };
+const dakuten = {
+  gzrow:[
+    {char:'ガ',romaji:'ga'},{char:'ギ',romaji:'gi'},{char:'グ',romaji:'gu'},{char:'ゲ',romaji:'ge'},{char:'ゴ',romaji:'go'},
+    {char:'ザ',romaji:'za'},{char:'ジ',romaji:'ji'},{char:'ズ',romaji:'zu'},{char:'ゼ',romaji:'ze'},{char:'ゾ',romaji:'zo'},
+  ],
+  dbrow:[
+    {char:'ダ',romaji:'da'},{char:'ヂ',romaji:'ji'},{char:'ヅ',romaji:'zu'},{char:'デ',romaji:'de'},{char:'ド',romaji:'do'},
+    {char:'バ',romaji:'ba'},{char:'ビ',romaji:'bi'},{char:'ブ',romaji:'bu'},{char:'ベ',romaji:'be'},{char:'ボ',romaji:'bo'},
+  ],
+  prow:[
+    {char:'パ',romaji:'pa'},{char:'ピ',romaji:'pi'},{char:'プ',romaji:'pu'},{char:'ペ',romaji:'pe'},{char:'ポ',romaji:'po'},
+  ],
+};
 const combos = {
   'comb-k': [{char:'キャ',romaji:'kya',parts:'キ＋ャ'},{char:'キュ',romaji:'kyu',parts:'キ＋ュ'},{char:'キョ',romaji:'kyo',parts:'キ＋ョ'}],
   'comb-g': [{char:'ギャ',romaji:'gya',parts:'ギ＋ャ'},{char:'ギュ',romaji:'gyu',parts:'ギ＋ュ'},{char:'ギョ',romaji:'gyo',parts:'ギ＋ョ'}],
@@ -292,7 +291,8 @@ function buildBasic(id, data) {
   const el = document.getElementById(id);
   data.forEach(item => {
     const t = document.createElement('div'); t.className = 'tile'; t.style.animationDelay = `${delay}ms`; delay += 38;
-    t.innerHTML = `<span class="tile-char">${item.char}</span><span class="tile-romaji">${item.romaji}</span>`;
+    t.innerHTML = `<span class="audio-badge">🔊</span><span class="tile-char">${item.char}</span><span class="tile-romaji">${item.romaji}</span>`;
+    t.addEventListener('click', () => { if (window.speakKana) window.speakKana(item.char, t); });
     el.appendChild(t);
   });
 }
@@ -300,7 +300,8 @@ function buildCombo(id, data) {
   const el = document.getElementById(id);
   data.forEach(item => {
     const t = document.createElement('div'); t.className = 'tile tile-combo'; t.style.animationDelay = `${delay}ms`; delay += 38;
-    t.innerHTML = `<span class="tile-char">${item.char}</span><span class="tile-romaji">${item.romaji}</span><span class="tile-parts">${item.parts}</span>`;
+    t.innerHTML = `<span class="audio-badge">🔊</span><span class="tile-char">${item.char}</span><span class="tile-romaji">${item.romaji}</span><span class="tile-parts">${item.parts}</span>`;
+    t.addEventListener('click', () => { if (window.speakKana) window.speakKana(item.char, t); });
     el.appendChild(t);
   });
 }
@@ -308,48 +309,19 @@ function buildExt(id, data) {
   const el = document.getElementById(id);
   data.forEach((item, i) => {
     const t = document.createElement('div'); t.className = 'tile tile-ext'; t.style.animationDelay = `${i * 50}ms`;
-    t.innerHTML = `<span class="tile-char">${item.char}</span><span class="tile-romaji">${item.romaji}</span><span class="tile-parts">${item.parts}</span>`;
+    t.innerHTML = `<span class="audio-badge">🔊</span><span class="tile-char">${item.char}</span><span class="tile-romaji">${item.romaji}</span><span class="tile-parts">${item.parts}</span>`;
+    t.addEventListener('click', () => { if (window.speakKana) window.speakKana(item.char, t); });
     el.appendChild(t);
   });
 }
 
 Object.entries(basic).forEach(([id, data]) => buildBasic(id, data));
+Object.entries(dakuten).forEach(([id, data]) => buildBasic(id, data));
 Object.entries(combos).forEach(([id, data]) => buildCombo(id, data));
 Object.entries(extended).forEach(([id, data]) => buildExt(id, data));
 
-// ── Font picker ──
-const fontOpts = document.querySelectorAll('.font-opt');
-let fontStyleEl = document.createElement('style');
-document.head.appendChild(fontStyleEl);
-
-function applyCharFont(font) {
-  fontStyleEl.textContent = `.tile-char { font-family: '${font}', serif !important; }`;
-  localStorage.setItem('kataCharFont', font);
-}
-fontOpts.forEach(btn => {
-  btn.addEventListener('click', () => {
-    fontOpts.forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    applyCharFont(btn.dataset.font);
-  });
-});
-const savedCharFont = localStorage.getItem('kataCharFont') || 'Shippori Mincho B1';
-applyCharFont(savedCharFont);
-const savedBtn = [...fontOpts].find(b => b.dataset.font === savedCharFont);
-if (savedBtn) { fontOpts.forEach(b => b.classList.remove('active')); savedBtn.classList.add('active'); }
-
-// ── Font size slider ──
-const slider = document.getElementById('font-slider');
-function applyFontSize(val) {
-  document.querySelectorAll('.tile-char').forEach(el => el.style.fontSize = val + 'rem');
-}
-slider.addEventListener('input', () => {
-  applyFontSize(parseFloat(slider.value));
-  localStorage.setItem('kataFontSize', slider.value);
-});
-const savedFont = localStorage.getItem('kataFontSize');
-if (savedFont) { slider.value = savedFont; applyFontSize(parseFloat(savedFont)); }
 </script>
+<script src="audio.js"></script>
 <script src="backgrounds.js"></script>
 <script src="nav.js"></script>
 <script>

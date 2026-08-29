@@ -22,6 +22,7 @@
       overflow: hidden;
       -webkit-app-region: drag;
       user-select: none;
+      transition: opacity 0.35s ease;
     }
 
     /* Subtle background pattern */
@@ -141,82 +142,6 @@
     }
     .btn-no:hover { border-color: #c4b8a8; color: #e8e0d5; }
 
-    /* ── Loading screen ── */
-    #loading-screen {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: #13100e;
-      z-index: 100;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 0;
-    }
-    #loading-screen.visible { display: flex; }
-
-    .loading-kana {
-      font-family: 'Shippori Mincho B1', serif;
-      font-size: 1.4rem;
-      font-weight: 800;
-      color: #e8e0d5;
-      letter-spacing: 0.3em;
-      margin-bottom: 24px;
-      opacity: 0;
-      animation: fadeIn 0.5s 0.1s ease forwards;
-      white-space: nowrap;
-    }
-
-    .loading-msg {
-      font-family: 'Lora', serif;
-      font-size: 0.72rem;
-      font-style: italic;
-      color: #c9a84c;
-      letter-spacing: 0.18em;
-      margin-bottom: 20px;
-      opacity: 0;
-      animation: fadeIn 0.5s 0.2s ease forwards;
-      white-space: nowrap;
-    }
-
-    .loading-bar-track {
-      width: 220px;
-      height: 2px;
-      background: #2a2420;
-      border-radius: 2px;
-      overflow: hidden;
-      opacity: 0;
-      animation: fadeIn 0.5s 0.2s ease forwards;
-      flex-shrink: 0;
-    }
-
-    .loading-bar-fill {
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, #e05a47, #c9a84c);
-      border-radius: 2px;
-    }
-
-    .loading-jp-chars {
-      margin-top: 24px;
-      display: flex;
-      gap: 10px;
-      opacity: 0;
-      animation: fadeIn 0.5s 0.3s ease forwards;
-      flex-shrink: 0;
-    }
-
-    .loading-jp-chars span {
-      font-family: 'Shippori Mincho B1', serif;
-      font-size: 1rem;
-      color: #2a2420;
-      transition: color 0.4s ease;
-      flex-shrink: 0;
-    }
-    .loading-jp-chars span.lit { color: #e05a47; }
-
-    @keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
-
     @keyframes shake {
       0%,100%{ transform: translateX(0); }
       20%    { transform: translateX(-6px); }
@@ -243,21 +168,8 @@
     </div>
   </div>
 
-  <!-- Loading screen -->
-  <div id="loading-screen">
-    <div class="loading-kana">ひらがな · カタカナ</div>
-    <div class="loading-msg">準備中です... Loading your kana</div>
-    <div class="loading-bar-track">
-      <div class="loading-bar-fill" id="loading-bar"></div>
-    </div>
-    <div class="loading-jp-chars" id="loading-chars">
-      <span>あ</span><span>い</span><span>う</span><span>え</span><span>お</span>
-      <span>か</span><span>き</span><span>く</span><span>け</span><span>こ</span>
-    </div>
-  </div>
-
   <script>
-    // Shake animation for iie button
+    // Playful shake animation for iie button
     document.getElementById('btn-no').addEventListener('click', () => {
       const btn = document.getElementById('btn-no');
       btn.classList.remove('shake');
@@ -267,65 +179,19 @@
       setTimeout(() => { btn.textContent = 'iie ~ :('; }, 1200);
     });
 
-    // Haiii button — show loading screen for 5 seconds
+    // Haiii button — smooth immediate transition into main app
     document.getElementById('btn-yes').addEventListener('click', () => {
-      // Fade out prompt
-      document.querySelector('.wrap').style.transition = 'opacity 0.35s ease';
-      document.querySelector('.wrap').style.opacity = '0';
+      document.body.style.opacity = '0';
 
       setTimeout(() => {
-        document.querySelector('.wrap').style.display = 'none';
-        document.getElementById('loading-screen').classList.add('visible');
-        startLoading();
-      }, 350);
+        if (window.electronAPI) {
+          window.electronAPI.enterApp();
+        } else {
+          location.href = 'index.html'; // browser fallback
+        }
+      }, 300);
     });
-
-    function startLoading() {
-      const bar = document.getElementById('loading-bar');
-      const chars = document.querySelectorAll('#loading-chars span');
-      const total = 5000;
-      const start = Date.now();
-      let charIdx = 0;
-
-      // Trigger window resize at 80% of load time so it's mostly done before navigate
-      setTimeout(() => {
-        if (window.electronAPI) window.electronAPI.enterApp();
-      }, total * 0.75);
-
-      // Light up chars evenly
-      const charInterval = setInterval(() => {
-        if (charIdx < chars.length) {
-          chars[charIdx].classList.add('lit');
-          charIdx++;
-        } else {
-          clearInterval(charInterval);
-        }
-      }, (total * 0.9) / chars.length);
-
-      // Smooth progress bar via rAF
-      function tick() {
-        const elapsed = Date.now() - start;
-        const pct = Math.min((elapsed / total) * 100, 100);
-        bar.style.width = pct + '%';
-        if (elapsed < total) {
-          requestAnimationFrame(tick);
-        } else {
-          bar.style.width = '100%';
-          setTimeout(() => {
-            // Fade entire body to black
-            document.body.style.transition = 'opacity 0.5s ease';
-            document.body.style.opacity = '0';
-            setTimeout(() => {
-              if (window.electronAPI) window.electronAPI.loadingDone();
-              else location.href = 'index.html'; // browser fallback
-            }, 550);
-          }, 150);
-        }
-      }
-      requestAnimationFrame(tick);
-    }
   </script>
-
 
 </body>
 </html>
