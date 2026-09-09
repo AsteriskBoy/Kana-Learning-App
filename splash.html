@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script src="theme-init.js"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Japanese Kana</title>
@@ -9,9 +10,61 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     *::-webkit-scrollbar { display: none; }
 
+    /* ══ Theme Variables ══ */
+    :root {
+      --paper: #f8f5ee;
+      --ink: #141210;
+      --ink-soft: #383028;
+      --gold: #7d5a0c;
+      --vermillion: #b83224;
+      --tile-border: #dcd3c4;
+      --tile-bg: #ffffff;
+      --btn-no-bg: #ffffff;
+      --btn-no-color: #383028;
+      --btn-no-border: #dcd3c4;
+      --corner-color: #8a6a2a;
+      --corner-opacity: 0.22;
+      --bg-image: url("assets/fuji-light.jpg");
+      --bg-opacity: 0.28;
+    }
+
+    body.dark {
+      --paper: #13100e;
+      --ink: #e8e0d5;
+      --ink-soft: #c4b8a8;
+      --gold: #c9a84c;
+      --vermillion: #e05a47;
+      --tile-border: #3a3028;
+      --tile-bg: #1e1a17;
+      --btn-no-bg: #1e1a17;
+      --btn-no-color: #c4b8a8;
+      --btn-no-border: #3a3028;
+      --corner-color: #c9a84c;
+      --corner-opacity: 0.25;
+      --bg-image: url("assets/fuji-dark.jpg");
+      --bg-opacity: 0.35;
+    }
+
+    body.light {
+      --paper: #f8f5ee;
+      --ink: #141210;
+      --ink-soft: #383028;
+      --gold: #7d5a0c;
+      --vermillion: #b83224;
+      --tile-border: #dcd3c4;
+      --tile-bg: #ffffff;
+      --btn-no-bg: #ffffff;
+      --btn-no-color: #383028;
+      --btn-no-border: #dcd3c4;
+      --corner-color: #8a6a2a;
+      --corner-opacity: 0.22;
+      --bg-image: url("assets/fuji-light.jpg");
+      --bg-opacity: 0.28;
+    }
+
     body {
-      background: #13100e;
-      color: #e8e0d5;
+      background-color: var(--paper) !important;
+      color: var(--ink) !important;
       font-family: 'Lora', serif;
       min-height: 100vh;
       display: flex;
@@ -22,28 +75,141 @@
       overflow: hidden;
       -webkit-app-region: drag;
       user-select: none;
-      transition: opacity 0.35s ease;
+      transition: opacity 0.35s ease, background-color 0.25s ease, color 0.25s ease;
     }
 
-    /* Subtle background pattern */
+    /* Background pattern */
     body::before {
       content: '';
       position: fixed; inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='35'%3E%3Cellipse cx='30' cy='35' rx='30' ry='20' fill='none' stroke='%233a3028' stroke-width='0.8' opacity='0.5'/%3E%3Cellipse cx='0' cy='35' rx='30' ry='20' fill='none' stroke='%233a3028' stroke-width='0.8' opacity='0.5'/%3E%3Cellipse cx='60' cy='35' rx='30' ry='20' fill='none' stroke='%233a3028' stroke-width='0.8' opacity='0.5'/%3E%3Cellipse cx='15' cy='14' rx='30' ry='20' fill='none' stroke='%233a3028' stroke-width='0.8' opacity='0.3'/%3E%3Cellipse cx='45' cy='14' rx='30' ry='20' fill='none' stroke='%233a3028' stroke-width='0.8' opacity='0.3'/%3E%3C/svg%3E");
-      background-size: 60px 35px;
+      background-image: var(--bg-image);
+      background-size: cover;
+      background-position: center bottom;
+      background-repeat: no-repeat;
+      opacity: var(--bg-opacity);
       pointer-events: none; z-index: 0;
+      transition: opacity 0.35s ease, background-image 0.35s ease;
     }
 
-    /* Decorative kanji corners */
+    /* Top bar for mode switcher */
+    .splash-topbar {
+      position: absolute;
+      top: 14px;
+      right: 16px;
+      z-index: 10;
+      -webkit-app-region: no-drag;
+    }
+
+    /* Theme toggle switch */
+    .tb-theme-toggle {
+      display: inline-block;
+      position: relative;
+      width: 54px;
+      height: 26px;
+      padding: 0;
+      border-radius: 13px;
+      cursor: pointer;
+      outline: none;
+      user-select: none;
+      box-sizing: border-box;
+      transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+      vertical-align: middle;
+    }
+
+    .tb-theme-thumb {
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      transition: transform 0.28s cubic-bezier(0.34, 1.3, 0.64, 1), background-color 0.25s ease, box-shadow 0.25s ease;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .tb-theme-icon {
+      position: absolute;
+      top: 2px;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      z-index: 2;
+      transition: color 0.25s ease, transform 0.25s ease, opacity 0.25s ease;
+    }
+
+    .tb-theme-icon.sun {
+      left: 2px;
+    }
+
+    .tb-theme-icon.moon {
+      right: 2px;
+    }
+
+    .tb-theme-icon svg {
+      width: 13px;
+      height: 13px;
+      display: block;
+      margin: auto;
+    }
+
+    /* Light state for toggle */
+    body.light .tb-theme-toggle {
+      background: #e8dfd0;
+      border: 1px solid #d2c5b0;
+    }
+    body.light .tb-theme-thumb {
+      transform: translateX(0);
+      background: #ffffff;
+      box-shadow: 0 1px 4px rgba(20, 18, 16, 0.22);
+    }
+    body.light .tb-theme-icon.sun {
+      color: #b45309;
+      opacity: 1;
+      transform: scale(1.05);
+    }
+    body.light .tb-theme-icon.moon {
+      color: #8c7e6e;
+      opacity: 0.6;
+      transform: scale(0.9);
+    }
+
+    /* Dark state for toggle */
+    body.dark .tb-theme-toggle {
+      background: #231c18;
+      border: 1px solid #3d322a;
+    }
+    body.dark .tb-theme-thumb {
+      transform: translateX(28px);
+      background: #3a2e26;
+      box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+    }
+    body.dark .tb-theme-icon.sun {
+      color: #6a5a4c;
+      opacity: 0.6;
+      transform: scale(0.9);
+    }
+    body.dark .tb-theme-icon.moon {
+      color: #ffd166;
+      opacity: 1;
+      transform: scale(1.05);
+    }
+
+    /* Decorative kanji corners - Shifted nicely so they are not cut off */
     .corner {
       position: fixed;
       font-family: 'Shippori Mincho B1', serif;
-      font-size: 5rem; font-weight: 800;
-      color: #3a3028; opacity: 0.25;
+      font-size: 4.6rem; font-weight: 800;
+      color: var(--corner-color) !important;
+      opacity: var(--corner-opacity) !important;
       pointer-events: none; z-index: 0; line-height: 1;
+      transition: color 0.25s ease, opacity 0.25s ease;
     }
-    .corner-tl { top: -15px; left: 10px; }
-    .corner-br { bottom: -15px; right: 10px; }
+    .corner-tl { top: 18px; left: 18px; }
+    .corner-br { bottom: 18px; right: 18px; }
 
     .wrap {
       position: relative; z-index: 1;
@@ -71,7 +237,7 @@
     .kana-hero {
       font-family: 'Shippori Mincho B1', serif;
       font-size: 1.6rem; font-weight: 800;
-      color: #e8e0d5;
+      color: var(--ink) !important;
       letter-spacing: 0.2em;
       margin-bottom: 2px;
       line-height: 1.2;
@@ -79,15 +245,15 @@
 
     .divider {
       width: 40px; height: 1px;
-      background: #e05a47;
+      background: var(--vermillion) !important;
       margin: 12px auto 16px;
-      position: relative; opacity: 0;
+      position: relative; opacity: 0.8;
     }
     .divider::before, .divider::after {
       content: ''; position: absolute; top: 50%;
       transform: translateY(-50%);
       width: 3px; height: 3px; border-radius: 50%;
-      background: #e05a47;
+      background: var(--vermillion) !important;
     }
     .divider::before { left: -6px; }
     .divider::after  { right: -6px; }
@@ -96,7 +262,7 @@
       font-family: 'Playfair Display', serif;
       font-size: 1.25rem;
       font-weight: 400;
-      color: #e8e0d5;
+      color: var(--ink) !important;
       line-height: 1.3;
       margin-bottom: 6px;
     }
@@ -104,7 +270,7 @@
     .sub {
       font-size: 0.75rem;
       font-style: italic;
-      color: #c9a84c;
+      color: var(--gold) !important;
       letter-spacing: 0.08em;
       margin-bottom: 24px;
     }
@@ -129,18 +295,22 @@
     .btn:active { transform: scale(0.97); }
 
     .btn-yes {
-      background: #e05a47;
-      color: #fff;
-      box-shadow: 0 4px 16px rgba(224,90,71,0.35);
+      background: var(--vermillion) !important;
+      color: #ffffff !important;
+      box-shadow: 0 4px 16px rgba(184, 50, 36, 0.3);
     }
-    .btn-yes:hover { box-shadow: 0 6px 22px rgba(224,90,71,0.5); }
+    .btn-yes:hover { box-shadow: 0 6px 22px rgba(184, 50, 36, 0.45); }
 
     .btn-no {
-      background: #1e1a17;
-      color: #c4b8a8;
-      border: 1px solid #3a3028;
+      background: var(--btn-no-bg) !important;
+      color: var(--btn-no-color) !important;
+      border: 1px solid var(--btn-no-border) !important;
+      box-shadow: 0 2px 8px rgba(20, 18, 16, 0.06);
     }
-    .btn-no:hover { border-color: #c4b8a8; color: #e8e0d5; }
+    .btn-no:hover {
+      border-color: var(--vermillion) !important;
+      color: var(--vermillion) !important;
+    }
 
     @keyframes shake {
       0%,100%{ transform: translateX(0); }
@@ -153,6 +323,18 @@
   </style>
 </head>
 <body>
+
+  <div class="splash-topbar">
+    <button type="button" class="tb-theme-toggle" id="theme-toggle-btn" role="switch" aria-label="Toggle light or dark mode">
+      <span class="tb-theme-thumb"></span>
+      <span class="tb-theme-icon sun" title="Light mode">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </span>
+      <span class="tb-theme-icon moon" title="Dark mode">
+        <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </span>
+    </button>
+  </div>
 
   <span class="corner corner-tl">仮</span>
   <span class="corner corner-br">名</span>
@@ -169,6 +351,44 @@
   </div>
 
   <script>
+    // Theme toggle handling on splash
+    (function () {
+      function getTheme() {
+        const stored = localStorage.getItem('kana-theme');
+        if (stored === 'light' || stored === 'dark') return stored;
+        const dm = localStorage.getItem('dm');
+        if (dm === '1') return 'dark';
+        if (dm === '0') return 'light';
+        return 'light';
+      }
+
+      function apply(theme) {
+        const next = theme === 'dark' ? 'dark' : 'light';
+        localStorage.setItem('kana-theme', next);
+        localStorage.setItem('dm', next === 'dark' ? '1' : '0');
+        document.documentElement.setAttribute('data-theme', next);
+        document.documentElement.style.background = next === 'light' ? '#f8f5ee' : '#13100e';
+        document.body.classList.toggle('dark', next === 'dark');
+        document.body.classList.toggle('light', next === 'light');
+
+        // Remove early boot style so it never interferes with CSS variables
+        const boot = document.getElementById('kana-theme-boot');
+        if (boot) boot.remove();
+
+        const btn = document.getElementById('theme-toggle-btn');
+        if (btn) {
+          btn.setAttribute('title', next === 'light' ? 'Current: Light Mode (Sun) — Click to switch to Dark Mode (Moon)' : 'Current: Dark Mode (Moon) — Click to switch to Light Mode (Sun)');
+          btn.setAttribute('aria-checked', next === 'light' ? 'false' : 'true');
+        }
+      }
+
+      apply(getTheme());
+
+      document.getElementById('theme-toggle-btn').addEventListener('click', () => {
+        apply(getTheme() === 'light' ? 'dark' : 'light');
+      });
+    })();
+
     // Playful shake animation for iie button
     document.getElementById('btn-no').addEventListener('click', () => {
       const btn = document.getElementById('btn-no');

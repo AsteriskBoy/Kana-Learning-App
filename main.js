@@ -17,7 +17,7 @@ function createSplash() {
       contextIsolation: true,
       preload: path.join(__dirname, 'preload.js'),
     },
-    backgroundColor: '#13100e',
+    backgroundColor: '#f8f5ee',
     show: false,
   });
 
@@ -42,7 +42,7 @@ function createMain() {
       contextIsolation: true,
       preload: path.join(__dirname, 'preload.js'),
     },
-    backgroundColor: '#13100e',
+    backgroundColor: '#f8f5ee',
     show: false,
   });
 

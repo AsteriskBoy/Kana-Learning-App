@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" style="background:#13100e;">
+<html lang="en">
 <head>
+  <script src="theme-init.js"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Japanese Kana — Hiragana & Katakana</title>
@@ -27,25 +28,28 @@
     @keyframes pageFadeOut { from{opacity:1;} to{opacity:0;} }
     body::before {
       content: ''; position: fixed; inset: 0;
-      background-image:
-        radial-gradient(ellipse 70% 60% at 50% 50%, rgba(192,57,43,0.05) 0%, transparent 70%),
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      background-image: url('assets/fuji-light.jpg');
+      background-size: cover;
+      background-position: center bottom;
+      background-repeat: no-repeat;
+      opacity: 0.28;
       pointer-events: none; z-index: 0;
     }
     .corner {
-      position: fixed; font-family: 'Noto Serif JP', serif;
-      font-size: 7rem; font-weight: 700; color: var(--tile-border);
-      opacity: 0.18; pointer-events: none; z-index: 0; line-height: 1; user-select: none;
+      position: fixed; font-family: 'Noto Serif JP', 'Shippori Mincho B1', serif;
+      font-size: clamp(4.5rem, 8vw, 6.2rem); font-weight: 700; color: var(--gold);
+      opacity: 0.24; pointer-events: none; z-index: 0; line-height: 1; user-select: none;
+      transition: color 0.25s ease, opacity 0.25s ease;
     }
-    .corner-tl { top: -10px; left: 10px; }
-    .corner-br { bottom: -10px; right: 10px; }
+    .corner-tl { top: 54px; left: 32px; }
+    .corner-br { bottom: 28px; right: 32px; }
     .rule {
       width: 1px; position: fixed; top: 0; bottom: 0; left: 50%;
       background: linear-gradient(to bottom, transparent, var(--tile-border) 20%, var(--tile-border) 80%, transparent);
       opacity: 0.25; z-index: 0;
     }
     .wrap {
-      position: relative; z-index: 1;
+      position: relative; z-index: 2;
       display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 680px;
     }
     .main-title {
@@ -102,7 +106,7 @@
 
     /* ── Sakura petals ── */
     .sakura-layer {
-      position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
+      position: fixed; inset: 0; pointer-events: none; z-index: 1; overflow: hidden;
     }
     .petal {
       position: absolute; top: -10%;

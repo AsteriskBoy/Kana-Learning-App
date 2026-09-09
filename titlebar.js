@@ -16,9 +16,9 @@
     #custom-titlebar {
       position: fixed;
       top: 0; left: 0; right: 0;
-      height: 36px;
-      background: #f7f3ed;
-      border-bottom: 1px solid #e8e0d5;
+      height: 38px;
+      background: var(--paper, #f8f5ee);
+      border-bottom: 1px solid var(--tile-border, #dcd3c4);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -26,46 +26,49 @@
       -webkit-app-region: drag;
       z-index: 9999;
       user-select: none;
+      transition: background-color 0.25s ease, border-color 0.25s ease;
     }
     .titlebar-title {
-      font-family: 'Noto Serif JP', serif;
-      font-size: 12px;
-      letter-spacing: 0.2em;
-      color: #d9d0c2;
-      font-weight: 300;
+      font-family: 'Shippori Mincho B1', 'Noto Serif JP', serif;
+      font-size: 13px;
+      letter-spacing: 0.18em;
+      color: var(--gold, #856114);
+      font-weight: 600;
+      transition: color 0.25s ease;
     }
     .titlebar-controls {
       display: flex;
-      gap: 4px;
+      align-items: center;
+      gap: 6px;
       -webkit-app-region: no-drag;
     }
     .tb-btn {
-      width: 28px; height: 24px;
+      width: 28px; height: 26px;
       background: none;
       border: none;
-      border-radius: 4px;
+      border-radius: 5px;
       font-size: 12px;
-      color: #8a7a6a;
+      color: var(--ink-soft, #42382e);
       cursor: pointer;
       display: flex; align-items: center; justify-content: center;
       transition: background 0.15s, color 0.15s;
       padding: 0;
     }
-    .tb-btn:hover { background: rgba(26,20,16,0.08); color: #1a1410; }
+    .tb-btn:hover { background: rgba(20,18,16,0.08); color: var(--ink, #141210); }
     .tb-close:hover { background: #c0392b !important; color: #fff !important; }
-    body { padding-top: 36px; }
+    body { padding-top: 38px; }
   `;
 
   document.head.appendChild(style);
   document.body.insertBefore(bar, document.body.firstChild);
 
-  // Wire up buttons only if running inside Electron
+  // Wire up window buttons only if running inside Electron
   if (window.electronAPI) {
     bar.querySelector('.tb-min').addEventListener('click', () => window.electronAPI.minimize());
     bar.querySelector('.tb-max').addEventListener('click', () => window.electronAPI.maximize());
     bar.querySelector('.tb-close').addEventListener('click', () => window.electronAPI.close());
   } else {
-    // Running in browser — hide controls gracefully
-    bar.querySelector('.titlebar-controls').style.display = 'none';
+    // Running in browser — hide only native window controls, keep theme toggle
+    bar.querySelectorAll('.tb-min, .tb-max, .tb-close').forEach(b => b.style.display = 'none');
   }
 })();

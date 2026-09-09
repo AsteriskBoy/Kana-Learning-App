@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" style="background:#13100e;">
+<html lang="en">
 <head>
+  <script src="theme-init.js"></script>
   <style>*::-webkit-scrollbar{display:none!important;width:0!important;}html,body{scrollbar-width:none!important;-ms-overflow-style:none!important;}</style>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,8 +15,8 @@
     }
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
     body{background-color:var(--paper);color:var(--ink);font-family:'Cormorant Garamond',serif;min-height:100vh;padding:0 0 100px;position:relative;overflow-x:hidden;scrollbar-width:none;-ms-overflow-style:none;opacity:0;animation:pageFadeIn 0.5s ease forwards;}body::-webkit-scrollbar{display:none;}@keyframes pageFadeIn{from{opacity:0;}to{opacity:1;}}
-    body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(192,57,43,0.04) 0%,transparent 60%),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:0;}
-    body::after{content:'';position:fixed;top:0;left:50%;transform:translateX(-50%);width:1px;height:100%;background:linear-gradient(to bottom,transparent,var(--tile-border) 20%,var(--tile-border) 80%,transparent);opacity:0.3;pointer-events:none;z-index:0;}
+    body::before{content:'';position:fixed;inset:0;background-image:url('assets/fuji-light.jpg');background-size:cover;background-position:center bottom;background-repeat:no-repeat;opacity:0.28;pointer-events:none;z-index:0;}
+    body::after{display:none!important;}
 
     .back-nav{position:relative;z-index:10;padding:24px 32px 0;}
     .back-link{font-family:'Cormorant Garamond',serif;font-size:0.82rem;letter-spacing:0.2em;color:var(--tile-border);text-decoration:none;text-transform:uppercase;transition:color 0.3s ease;display:inline-flex;align-items:center;gap:6px;}

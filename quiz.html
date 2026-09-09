@@ -1,15 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script>
-    (function(){
-      var f = localStorage.getItem('hiraCharFont') || 'Shippori Mincho B1';
-      var s = document.createElement('style');
-      s.id = 'quiz-font-override';
-      s.textContent = '.quiz-char { font-family: "' + f + '", serif !important; }';
-      document.head.appendChild(s);
-    })();
-  </script>
+  <script src="theme-init.js"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Hiragana Quiz</title>
@@ -499,8 +491,6 @@ function buildMistakes() {
 
 function goSetup() { show('setup-screen'); }
 function playAgain() { selectedQ=lastConfig.q; selectedType=lastConfig.type; startQuiz(); }
-
-const dm=localStorage.getItem('dm'); if(dm==='1') document.body.classList.add('dark');
 
 </script>
 <script src="audio.js"></script>

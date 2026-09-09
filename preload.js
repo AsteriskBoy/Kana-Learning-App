@@ -5,5 +5,4 @@ contextBridge.exposeInMainWorld('electronAPI', {
   maximize:    () => ipcRenderer.send('window-maximize'),
   close:       () => ipcRenderer.send('window-close'),
   enterApp:    () => ipcRenderer.send('enter-app'),
-  loadingDone: () => ipcRenderer.send('loading-done'),
 });
