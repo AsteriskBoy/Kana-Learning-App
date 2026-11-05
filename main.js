@@ -63,6 +63,7 @@ app.whenReady().then(() => {
   ipcMain.on('enter-app', () => {
     if (!mainWin) createMain();
     mainWin.show();
+    mainWin.focus();
     if (splashWin) {
       splashWin.destroy();
       splashWin = null;

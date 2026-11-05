@@ -1,7 +1,7 @@
 {
   "name": "japanese-kana-kanji",
   "version": "1.0.0",
-  "description": "Japanese Kana & Kanji — Complete Reference",
+  "description": "Japanese Kana & Kanji \u2014 Complete Reference",
   "main": "main.js",
   "author": "You",
   "license": "MIT",
@@ -9,7 +9,8 @@
     "start": "electron .",
     "build-win": "electron-packager . JapaneseKana --platform=win32 --arch=x64 --out=dist --overwrite --icon=icon.ico",
     "build-mac": "electron-packager . JapaneseKana --platform=darwin --arch=x64 --out=dist --overwrite",
-    "build-linux": "electron-packager . JapaneseKana --platform=linux --arch=x64 --out=dist --overwrite"
+    "build-linux": "electron-packager . JapaneseKana --platform=linux --arch=x64 --out=dist --overwrite",
+    "fetch-audio": "node tools/fetch-audio.js"
   },
   "devDependencies": {
     "electron": "^44.2.0",

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <script src="theme-init.js"></script>
+  <script src="accent.js"></script>
   <style>*::-webkit-scrollbar{display:none!important;width:0!important;}html,body{scrollbar-width:none!important;-ms-overflow-style:none!important;}</style>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -40,7 +41,7 @@
     .page-btn{flex:1;background:none;border:1px solid var(--tile-border);border-right:none;padding:10px 8px;font-family:'Cormorant Garamond',serif;font-size:0.85rem;letter-spacing:0.15em;color:var(--ink-soft);cursor:pointer;transition:background 0.3s,color 0.3s,border-color 0.3s;}
     .page-btn:first-child{border-radius:5px 0 0 5px;}
     .page-btn:last-child{border-right:1px solid var(--tile-border);border-radius:0 5px 5px 0;}
-    .page-btn:hover{background:rgba(192,57,43,0.04);color:var(--vermillion);}
+    .page-btn:hover{background:rgba(var(--vermillion-rgb),0.04);color:var(--vermillion);}
     .page-btn.active{background:var(--vermillion);border-color:var(--vermillion);color:#fff;}
     .page-btn.active+.page-btn{border-left-color:var(--vermillion);}
 
@@ -81,11 +82,11 @@
 <body>
 <nav class="back-nav"><a class="back-link" href="index.html">All Scripts</a></nav>
 <header>
-  <p class="header-eyebrow">Japanese Writing System</p>
+  <p class="header-eyebrow">Japanese Script</p>
   <h1 class="header-title">Hiragana</h1>
-  <p class="header-kanji">ひらがな &nbsp;·&nbsp; 平仮名</p>
+  <p class="header-kanji">ひらがな · 平仮名</p>
   <div class="divider"></div>
-  <p class="header-desc">The complete syllabary — basic characters, combinations, and extended foreign sounds.</p>
+  <p class="header-desc">Basic characters, voices & stroke orders</p>
 </header>
 
 <div class="toolbar">
@@ -99,69 +100,69 @@
 
 <div class="audio-hint-bar">
   <span>🔊</span>
-  <span>Click any character block to hear pronunciation</span>
+  <span>Click a tile · ✎ stroke order · ? shortcuts</span>
 </div>
 
 <main>
 
   <!-- ══ STANDARD PAGE ══ -->
   <div class="page-section active" id="standard">
-    <p class="chapter-heading">Basic Characters</p>
-    <p class="chapter-sub">基本字 · 46 characters</p>
-    <p class="section-label">Vowels — 母音</p><div class="grid" id="vowels"></div>
-    <p class="section-label">K · S · T · N rows</p><div class="grid" id="krow"></div>
-    <p class="section-label">H · M rows</p><div class="grid" id="hrow"></div>
-    <p class="section-label">Y row — 半母音</p><div class="grid-3" id="yrow"></div>
-    <p class="section-label">R row — 流音</p><div class="grid" id="rrow"></div>
-    <p class="section-label">W row</p><div class="grid-2" id="wrow"></div>
-    <p class="section-label">Nasal — 撥音</p><div class="grid-1" id="nrow"></div>
-    <p class="chapter-heading">Voiced & Semi-Voiced Sounds</p>
-    <p class="chapter-sub">濁音 · 半濁音 · 25 characters</p>
-    <p class="section-label">G · Z rows — 濁音</p><div class="grid" id="gzrow"></div>
-    <p class="section-label">D · B rows — 濁音</p><div class="grid" id="dbrow"></div>
-    <p class="section-label">P row — 半濁音</p><div class="grid" id="prow"></div>
-    <p class="chapter-heading">Combination Sounds</p>
-    <p class="chapter-sub">拗音 yōon · consonant + small ya / yu / yo</p>
-    <p class="section-label">K combinations</p><div class="grid-combo" id="comb-k"></div>
-    <p class="section-label">G combinations</p><div class="grid-combo" id="comb-g"></div>
-    <p class="section-label">SH combinations</p><div class="grid-combo" id="comb-sh"></div>
-    <p class="section-label">J combinations</p><div class="grid-combo" id="comb-j"></div>
-    <p class="section-label">CH combinations</p><div class="grid-combo" id="comb-ch"></div>
-    <p class="section-label">N combinations</p><div class="grid-combo" id="comb-n"></div>
-    <p class="section-label">H combinations</p><div class="grid-combo" id="comb-h"></div>
-    <p class="section-label">B combinations</p><div class="grid-combo" id="comb-b"></div>
-    <p class="section-label">P combinations</p><div class="grid-combo" id="comb-p"></div>
-    <p class="section-label">M combinations</p><div class="grid-combo" id="comb-m"></div>
-    <p class="section-label">R combinations</p><div class="grid-combo" id="comb-r"></div>
+    <p class="chapter-heading">Basic</p>
+    <p class="chapter-sub">46 characters</p>
+    <p class="section-label">Vowels</p><div class="grid" id="vowels"></div>
+    <p class="section-label">K · S · T · N</p><div class="grid" id="krow"></div>
+    <p class="section-label">H · M</p><div class="grid" id="hrow"></div>
+    <p class="section-label">Y</p><div class="grid-3" id="yrow"></div>
+    <p class="section-label">R</p><div class="grid" id="rrow"></div>
+    <p class="section-label">W</p><div class="grid-2" id="wrow"></div>
+    <p class="section-label">Nasal</p><div class="grid-1" id="nrow"></div>
+    <p class="chapter-heading">Voiced</p>
+    <p class="chapter-sub">25 characters</p>
+    <p class="section-label">G · Z</p><div class="grid" id="gzrow"></div>
+    <p class="section-label">D · B</p><div class="grid" id="dbrow"></div>
+    <p class="section-label">P</p><div class="grid" id="prow"></div>
+    <p class="chapter-heading">Combinations</p>
+    <p class="chapter-sub">yōon · 33 characters</p>
+    <p class="section-label">K combos</p><div class="grid-combo" id="comb-k"></div>
+    <p class="section-label">G combos</p><div class="grid-combo" id="comb-g"></div>
+    <p class="section-label">SH combos</p><div class="grid-combo" id="comb-sh"></div>
+    <p class="section-label">J combos</p><div class="grid-combo" id="comb-j"></div>
+    <p class="section-label">CH combos</p><div class="grid-combo" id="comb-ch"></div>
+    <p class="section-label">N combos</p><div class="grid-combo" id="comb-n"></div>
+    <p class="section-label">H combos</p><div class="grid-combo" id="comb-h"></div>
+    <p class="section-label">B combos</p><div class="grid-combo" id="comb-b"></div>
+    <p class="section-label">P combos</p><div class="grid-combo" id="comb-p"></div>
+    <p class="section-label">M combos</p><div class="grid-combo" id="comb-m"></div>
+    <p class="section-label">R combos</p><div class="grid-combo" id="comb-r"></div>
   </div>
 
   <!-- ══ EXTENDED PAGE ══ -->
   <div class="page-section" id="extended">
-    <p class="chapter-heading">Extended Sounds</p>
-    <p class="chapter-sub">拡張仮名 · used for foreign loanwords</p>
+    <p class="chapter-heading">Extended</p>
+    <p class="chapter-sub">Foreign sounds</p>
 
-    <p class="section-label">F sounds — ファ行</p>
+    <p class="section-label">F sounds</p>
     <div class="grid-ext" id="ext-f"></div>
 
-    <p class="section-label">V sounds — ヴ行</p>
+    <p class="section-label">V sounds</p>
     <div class="grid-ext" id="ext-v"></div>
 
-    <p class="section-label">T / D extended — T・D拡張</p>
+    <p class="section-label">T / D extended</p>
     <div class="grid-ext" id="ext-td"></div>
 
-    <p class="section-label">W sounds — W行</p>
+    <p class="section-label">W sounds</p>
     <div class="grid-ext" id="ext-w"></div>
 
     <p class="section-label">SH / J / CH extended</p>
     <div class="grid-ext" id="ext-sjc"></div>
 
-    <p class="section-label">Y extended — イェ</p>
+    <p class="section-label">Y extended</p>
     <div class="grid-ext" id="ext-y"></div>
   </div>
 
 </main>
 
-<footer><div class="divider"></div><p class="footer-text">Learn the sounds, feel the language</p><span class="footer-kanji">言葉</span></footer>
+<footer><div class="divider"></div>  <p class="footer-text">Practice. Repeat. Remember.</p><span class="footer-kanji">言葉</span></footer>
 
 <script>
 function switchPage(id, btn) {
@@ -260,8 +261,8 @@ function buildBasic(id, data) {
   const el = document.getElementById(id);
   data.forEach(item => {
     const t = document.createElement('div'); t.className = 'tile'; t.style.animationDelay = `${delay}ms`; delay += 38;
-    t.innerHTML = `<span class="audio-badge">🔊</span><span class="tile-char">${item.char}</span><span class="tile-romaji">${item.romaji}</span>`;
-    t.addEventListener('click', () => { if (window.speakKana) window.speakKana(item.char, t); });
+    t.innerHTML = `<span class="audio-badge">🔊</span><span class="stroke-btn" title="Stroke order">✎</span><span class="tile-char">${item.char}</span><span class="tile-romaji">${item.romaji}</span>`;
+    t.addEventListener('click', e => { if (e.target.closest('.stroke-btn')) { if (window.showStrokeOrder) window.showStrokeOrder(item.char, item.romaji); return; } if (window.speakKana) window.speakKana(item.char, t); });
     el.appendChild(t);
   });
 }
@@ -269,8 +270,8 @@ function buildCombo(id, data) {
   const el = document.getElementById(id);
   data.forEach(item => {
     const t = document.createElement('div'); t.className = 'tile tile-combo'; t.style.animationDelay = `${delay}ms`; delay += 38;
-    t.innerHTML = `<span class="audio-badge">🔊</span><span class="tile-char">${item.char}</span><span class="tile-romaji">${item.romaji}</span><span class="tile-parts">${item.parts}</span>`;
-    t.addEventListener('click', () => { if (window.speakKana) window.speakKana(item.char, t); });
+    t.innerHTML = `<span class="audio-badge">🔊</span><span class="stroke-btn" title="Stroke order">✎</span><span class="tile-char">${item.char}</span><span class="tile-romaji">${item.romaji}</span><span class="tile-parts">${item.parts}</span>`;
+    t.addEventListener('click', e => { if (e.target.closest('.stroke-btn')) { if (window.showStrokeOrder) window.showStrokeOrder(item.char, item.romaji); return; } if (window.speakKana) window.speakKana(item.char, t); });
     el.appendChild(t);
   });
 }
@@ -278,8 +279,8 @@ function buildExt(id, data) {
   const el = document.getElementById(id);
   data.forEach((item, i) => {
     const t = document.createElement('div'); t.className = 'tile tile-ext'; t.style.animationDelay = `${i * 50}ms`;
-    t.innerHTML = `<span class="audio-badge">🔊</span><span class="tile-char">${item.char}</span><span class="tile-romaji">${item.romaji}</span><span class="tile-parts">${item.parts}</span>`;
-    t.addEventListener('click', () => { if (window.speakKana) window.speakKana(item.char, t); });
+    t.innerHTML = `<span class="audio-badge">🔊</span><span class="stroke-btn" title="Stroke order">✎</span><span class="tile-char">${item.char}</span><span class="tile-romaji">${item.romaji}</span><span class="tile-parts">${item.parts}</span>`;
+    t.addEventListener('click', e => { if (e.target.closest('.stroke-btn')) { if (window.showStrokeOrder) window.showStrokeOrder(item.char, item.romaji); return; } if (window.speakKana) window.speakKana(item.char, t); });
     el.appendChild(t);
   });
 }
@@ -290,6 +291,8 @@ Object.entries(combos).forEach(([id, data]) => buildCombo(id, data));
 Object.entries(extended).forEach(([id, data]) => buildExt(id, data));
 
 </script>
+<script src="strokes.js"></script>
+<script src="stroke.js"></script>
 <script src="audio.js"></script>
 <script src="backgrounds.js"></script>
 <script src="nav.js"></script>
@@ -305,5 +308,6 @@ Object.entries(extended).forEach(([id, data]) => buildExt(id, data));
 </script>
 <script src="titlebar.js"></script>
 <script src="darkmode.js"></script>
+<script src="keys.js"></script>
 </body>
 </html>

@@ -1,13 +1,24 @@
-// ── High-Quality Studio Japanese Audio Module (Duolingo / Studio Quality) ──
+// ── Kana audio (fully offline) ──
+// Plays pre-recorded clips from audio/<codepoints>.mp3 (see tools/fetch-audio.js).
+// If a clip is missing, falls back to the operating system's Japanese voice.
+// Nothing here ever touches the network.
 (function () {
   const audioCache = new Map();
+  const missing = new Set(); // clips that failed to load once, skip straight to the system voice
 
-  // High-fidelity neural native Japanese studio audio stream
-  function getAudioUrl(text) {
-    return 'https://translate.google.com/translate_tts?ie=UTF-8&q=' + encodeURIComponent(text) + '&tl=ja&client=tw-ob';
+  // Katakana share their sound with hiragana, so both map to the same clip.
+  function toHira(text) {
+    return Array.from(text).map(ch => {
+      const n = ch.codePointAt(0);
+      return (n >= 0x30A1 && n <= 0x30F6) ? String.fromCodePoint(n - 0x60) : ch;
+    }).join('');
+  }
+  function clipPath(text) {
+    const cps = Array.from(toHira(text)).map(ch => ch.codePointAt(0).toString(16));
+    return 'audio/' + cps.join('-') + '.mp3';
   }
 
-  // Fallback engine if offline
+  // System voice fallback (works offline when a Japanese voice is installed)
   let jaVoice = null;
   function loadVoices() {
     if (!('speechSynthesis' in window)) return;
@@ -47,39 +58,39 @@
 
   window.speakKana = function (kanaText, element) {
     if (!kanaText) return;
+    if (element) element.classList.add('playing-audio');
+    const cleanup = () => { if (element) element.classList.remove('playing-audio'); };
 
-    if (element) {
-      element.classList.add('playing-audio');
-    }
+    const src = clipPath(kanaText);
+    if (missing.has(src)) { fallbackSpeech(kanaText, element); return; }
 
-    const cleanup = () => {
-      if (element) element.classList.remove('playing-audio');
+    let fellBack = false;
+    const useFallback = () => {
+      if (fellBack) return;
+      fellBack = true;
+      missing.add(src);
+      audioCache.delete(src);
+      fallbackSpeech(kanaText, element);
     };
 
     try {
-      let audio = audioCache.get(kanaText);
+      let audio = audioCache.get(src);
       if (!audio) {
-        audio = new Audio(getAudioUrl(kanaText));
-        audioCache.set(kanaText, audio);
+        audio = new Audio(src);
+        audioCache.set(src, audio);
       }
-
+      if (window.speechSynthesis) window.speechSynthesis.cancel();
       audio.currentTime = 0;
       audio.onended = cleanup;
-      audio.onerror = () => {
-        fallbackSpeech(kanaText, element);
-      };
+      audio.onerror = useFallback;
 
       const playPromise = audio.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(() => {
-          fallbackSpeech(kanaText, element);
-        });
-      }
+      if (playPromise !== undefined) playPromise.catch(useFallback);
 
       // Safety timeout for visual pulse
       setTimeout(cleanup, 1200);
     } catch (err) {
-      fallbackSpeech(kanaText, element);
+      useFallback();
     }
   };
 
@@ -96,7 +107,7 @@
     }
     .tile.playing-audio {
       border-color: var(--vermillion) !important;
-      box-shadow: 0 0 0 2px var(--vermillion), 0 0 16px rgba(224,90,71,0.4) !important;
+      box-shadow: 0 0 0 2px var(--vermillion), 0 0 16px rgba(var(--vermillion-rgb),0.4) !important;
       transform: scale(1.04) !important;
     }
     .tile.playing-audio .tile-char {
@@ -159,7 +170,7 @@
     .quiz-audio-btn.playing-audio {
       border-color: var(--vermillion);
       color: var(--vermillion);
-      box-shadow: 0 0 0 2px var(--vermillion), 0 0 12px rgba(224,90,71,0.4);
+      box-shadow: 0 0 0 2px var(--vermillion), 0 0 12px rgba(var(--vermillion-rgb),0.4);
     }
     .quiz-char {
       cursor: pointer;

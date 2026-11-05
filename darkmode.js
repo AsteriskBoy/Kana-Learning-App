@@ -142,7 +142,7 @@
       border-color: #d2c5b0;
     }
     body.light .tb-theme-toggle:hover {
-      border-color: #b83224;
+      border-color: var(--vermillion);
       background: #e2d7c5;
     }
     body.light .tb-theme-thumb {
@@ -167,7 +167,7 @@
       border-color: #3d322a;
     }
     body.dark .tb-theme-toggle:hover {
-      border-color: #c9a84c;
+      border-color: var(--gold);
       background: #2b221d;
     }
     body.dark .tb-theme-thumb {
@@ -195,6 +195,7 @@
       --ink-soft: #c4b8a8;
       --paper: #13100e;
       --vermillion: #e05a47;
+      --vermillion-rgb: 224,90,71;
       --vermillion-soft: #e87a6a;
       --gold: #c9a84c;
       --tile-bg: #1e1a17;
@@ -221,7 +222,7 @@
 
     body.dark .page-btn { color: var(--ink-soft); border-color: var(--tile-border); background: none; }
     body.dark .page-btn.active { background: var(--vermillion); border-color: var(--vermillion); color: #fff; }
-    body.dark .page-btn:hover { background: rgba(224,90,71,0.1); color: var(--vermillion); }
+    body.dark .page-btn:hover { background: rgba(var(--vermillion-rgb),0.1); color: var(--vermillion); }
     body.dark .page-btn.active + .page-btn { border-left-color: var(--vermillion); }
 
     body.dark .card { background: var(--tile-bg); border-color: var(--tile-border); color: var(--ink); }
@@ -275,9 +276,9 @@
 
     body.dark .quiz-input { background: #2a2420; color: var(--ink); border-color: var(--tile-border); }
     body.dark .quiz-input::placeholder { color: var(--tile-border); }
-    body.dark .quiz-input:focus { border-color: var(--vermillion); box-shadow: 0 0 0 2px rgba(224,90,71,0.15); }
+    body.dark .quiz-input:focus { border-color: var(--vermillion); box-shadow: 0 0 0 2px rgba(var(--vermillion-rgb),0.15); }
     body.dark .quiz-input.correct { background: #1a2e22; color: #6fcf97; border-color: #2e7d52; }
-    body.dark .quiz-input.wrong   { background: #2e1a17; color: #e05a47; border-color: var(--vermillion); }
+    body.dark .quiz-input.wrong   { background: #2e1a17; color: #e05a47; border-color: #e05a47; }
     body.dark .quiz-card { background: var(--tile-bg); border-color: var(--tile-border); }
     body.dark .quiz-char { color: var(--ink); }
     body.dark .quiz-next-btn { background: #2a2420; color: var(--ink); border: 1px solid var(--tile-border); }
@@ -309,7 +310,7 @@
     body.dark .eyebrow { color: var(--vermillion); }
     body.dark .main-title { color: var(--ink); }
     body.dark .main-kana { color: var(--ink-soft); }
-    body.dark .corner { color: #c9a84c !important; opacity: 0.28 !important; }
+    body.dark .corner { color: var(--gold) !important; opacity: 0.28 !important; }
     body.dark .divider { opacity: 0.5; }
     body.dark .audio-hint-bar { color: var(--gold); }
 
@@ -323,6 +324,7 @@
       --ink-muted: #5e5246;
       --paper: #f8f5ee;
       --vermillion: #b83224;
+      --vermillion-rgb: 184,50,36;
       --vermillion-soft: #c84334;
       --gold: #7d5a0c;
       --tile-bg: #ffffff;
@@ -334,7 +336,7 @@
 
     /* Titlebar */
     body.light #custom-titlebar { background: #f8f5ee; border-bottom-color: #dcd3c4; }
-    body.light .titlebar-title { color: #7d5a0c !important; font-weight: 600; }
+    body.light .titlebar-title { color: var(--gold) !important; font-weight: 600; }
     body.light .tb-btn { color: #42382e !important; }
     body.light .tb-btn:hover { background: rgba(20,18,16,0.08); color: #141210 !important; }
 
@@ -357,7 +359,7 @@
     body.light .setup-eyebrow,
     body.light .eyebrow,
     body.light .ack-jp {
-      color: #b83224 !important;
+      color: var(--vermillion) !important;
       font-weight: 600;
     }
 
@@ -366,7 +368,7 @@
     body.light .results-card-title,
     body.light .chart-title,
     body.light .mistakes-title {
-      color: #7d5a0c !important;
+      color: var(--gold) !important;
       font-weight: 600;
     }
 
@@ -417,10 +419,10 @@
       font-weight: 600 !important;
     }
     body.light .back-link::before {
-      color: #b83224 !important;
+      color: var(--vermillion) !important;
     }
     body.light .back-link:hover {
-      color: #b83224 !important;
+      color: var(--vermillion) !important;
     }
 
     /* Kana & Vocabulary Tiles */
@@ -438,34 +440,34 @@
       font-weight: 500 !important;
     }
     body.light .tile:hover {
-      border-color: #b83224 !important;
-      box-shadow: 0 0 0 1.5px #b83224, 0 4px 12px rgba(184,50,36,0.12) !important;
+      border-color: var(--vermillion) !important;
+      box-shadow: 0 0 0 1.5px var(--vermillion), 0 4px 12px rgba(var(--vermillion-rgb),0.12) !important;
     }
     body.light .tile:hover .tile-char {
-      color: #b83224 !important;
+      color: var(--vermillion) !important;
     }
     body.light .tile:hover .tile-romaji {
       color: #c84334 !important;
     }
     body.light .tile:hover .tile-parts {
-      color: #7d5a0c !important;
+      color: var(--gold) !important;
     }
 
     /* Audio Badges */
     body.light .audio-badge {
-      color: #7d5a0c !important;
+      color: var(--gold) !important;
     }
     body.light .tile.playing-audio .audio-badge {
-      color: #b83224 !important;
+      color: var(--vermillion) !important;
     }
     body.light .quiz-audio-btn {
       background: #ffffff !important;
       border-color: #dcd3c4 !important;
-      color: #7d5a0c !important;
+      color: var(--gold) !important;
     }
     body.light .quiz-audio-btn:hover {
-      border-color: #b83224 !important;
-      color: #b83224 !important;
+      border-color: var(--vermillion) !important;
+      color: var(--vermillion) !important;
     }
 
     /* Home Cards */
@@ -479,18 +481,18 @@
       color: #141210 !important;
     }
     body.light .card:hover {
-      border-color: #b83224 !important;
-      box-shadow: 0 0 0 1.5px #b83224, 0 8px 24px rgba(184,50,36,0.12) !important;
+      border-color: var(--vermillion) !important;
+      box-shadow: 0 0 0 1.5px var(--vermillion), 0 8px 24px rgba(var(--vermillion-rgb),0.12) !important;
     }
     body.light .card:hover .card-glyph {
-      color: #b83224 !important;
+      color: var(--vermillion) !important;
     }
     body.light .card:hover .card-script {
-      color: #b83224 !important;
+      color: var(--vermillion) !important;
     }
     body.light .card-tag {
-      color: #7d5a0c !important;
-      border-color: #7d5a0c !important;
+      color: var(--gold) !important;
+      border-color: var(--gold) !important;
     }
 
     /* Page Navigation & Toolbars */
@@ -500,19 +502,19 @@
       background: #ffffff !important;
     }
     body.light .page-btn:hover {
-      background: rgba(184,50,36,0.08) !important;
-      color: #b83224 !important;
+      background: rgba(var(--vermillion-rgb),0.08) !important;
+      color: var(--vermillion) !important;
     }
     body.light .page-btn.active {
-      background: #b83224 !important;
-      border-color: #b83224 !important;
+      background: var(--vermillion) !important;
+      border-color: var(--vermillion) !important;
       color: #ffffff !important;
     }
     body.light .page-btn.active + .page-btn {
-      border-left-color: #b83224 !important;
+      border-left-color: var(--vermillion) !important;
     }
     body.light .quiz-link {
-      background: #b83224 !important;
+      background: var(--vermillion) !important;
       color: #ffffff !important;
     }
 
@@ -528,8 +530,8 @@
       color: #383028 !important;
     }
     body.light .q-opt:hover, body.light .type-opt:hover {
-      border-color: #b83224 !important;
-      color: #b83224 !important;
+      border-color: var(--vermillion) !important;
+      color: var(--vermillion) !important;
     }
     body.light .type-opt .type-kana {
       color: #141210 !important;
@@ -538,8 +540,8 @@
       color: #383028 !important;
     }
     body.light .q-opt.selected, body.light .type-opt.selected {
-      background: #b83224 !important;
-      border-color: #b83224 !important;
+      background: var(--vermillion) !important;
+      border-color: var(--vermillion) !important;
       color: #ffffff !important;
     }
     body.light .type-opt.selected .type-kana {
@@ -549,9 +551,9 @@
       color: #ffffff !important;
     }
     body.light .start-btn {
-      background: #b83224 !important;
+      background: var(--vermillion) !important;
       color: #ffffff !important;
-      box-shadow: 0 4px 14px rgba(184,50,36,0.25);
+      box-shadow: 0 4px 14px rgba(var(--vermillion-rgb),0.25);
     }
 
     body.light .quiz-input {
@@ -563,8 +565,8 @@
       color: #8c7f70 !important;
     }
     body.light .quiz-input:focus {
-      border-color: #b83224 !important;
-      box-shadow: 0 0 0 3px rgba(184,50,36,0.14) !important;
+      border-color: var(--vermillion) !important;
+      box-shadow: 0 0 0 3px rgba(var(--vermillion-rgb),0.14) !important;
     }
     body.light .quiz-input.correct {
       background: #effaf3 !important;
@@ -604,7 +606,7 @@
       color: #141210 !important;
     }
     body.light .m-user {
-      color: #b83224 !important;
+      color: var(--vermillion) !important;
       font-weight: 600;
     }
     body.light .m-correct {
@@ -616,7 +618,7 @@
       font-weight: 600;
     }
     body.light .results-btn.primary {
-      background: #b83224 !important;
+      background: var(--vermillion) !important;
       color: #ffffff !important;
     }
     body.light .results-btn.secondary {
@@ -625,21 +627,21 @@
       border-color: #dcd3c4 !important;
     }
     body.light .ack-btn {
-      background: #b83224 !important;
+      background: var(--vermillion) !important;
       color: #ffffff !important;
     }
 
     /* Corner Watermarks & Dividers */
     body.light .corner {
-      color: #8a6a2a !important;
+      color: var(--gold) !important;
       opacity: 0.24 !important;
     }
     body.light .divider {
-      background: #b83224;
+      background: var(--vermillion);
       opacity: 0.7;
     }
     body.light .divider::before, body.light .divider::after {
-      background: #b83224;
+      background: var(--vermillion);
     }
     body.light .rule {
       background: linear-gradient(to bottom, transparent, #dcd3c4 20%, #dcd3c4 80%, transparent) !important;
@@ -733,6 +735,22 @@
   } else {
     mountToggle();
   }
+
+  // Keep in sync when the theme is changed from another window (e.g. the splash
+  // screen toggle while the main window is pre-loaded in the background).
+  function syncFromStorage() {
+    if (!document.body) return;
+    const wanted = currentTheme();
+    const shown = document.body.classList.contains('dark') ? 'dark' : 'light';
+    if (wanted !== shown) applyTheme(wanted);
+  }
+  window.addEventListener('storage', (e) => {
+    if (e.key === 'kana-theme' || e.key === 'dm' || e.key === null) syncFromStorage();
+  });
+  window.addEventListener('focus', syncFromStorage);
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) syncFromStorage();
+  });
 
   // Backup observer in case titlebar is injected dynamically
   const obs = new MutationObserver(() => {

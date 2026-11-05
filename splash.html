@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <script src="theme-init.js"></script>
+  <script src="accent.js"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Japanese Kana</title>
@@ -297,9 +298,9 @@
     .btn-yes {
       background: var(--vermillion) !important;
       color: #ffffff !important;
-      box-shadow: 0 4px 16px rgba(184, 50, 36, 0.3);
+      box-shadow: 0 4px 16px rgba(var(--vermillion-rgb), 0.3);
     }
-    .btn-yes:hover { box-shadow: 0 6px 22px rgba(184, 50, 36, 0.45); }
+    .btn-yes:hover { box-shadow: 0 6px 22px rgba(var(--vermillion-rgb), 0.45); }
 
     .btn-no {
       background: var(--btn-no-bg) !important;
@@ -413,5 +414,6 @@
     });
   </script>
 
+  <script src="keys.js"></script>
 </body>
 </html>

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <script src="theme-init.js"></script>
+  <script src="accent.js"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Katakana Quiz</title>
@@ -66,7 +67,7 @@
     .quiz-hint{font-size:0.72rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--tile-border);margin-bottom:28px;}
     .quiz-input-wrap{position:relative;margin-bottom:14px;}
     .quiz-input{width:100%;padding:14px 20px;background:#fff;border:1px solid var(--tile-border);border-radius:8px;font-family:'Cormorant Garamond',serif;font-size:1.4rem;letter-spacing:0.15em;color:var(--ink);text-align:center;outline:none;transition:border-color 0.25s,box-shadow 0.25s;}
-    .quiz-input:focus{border-color:var(--vermillion);box-shadow:0 0 0 2px rgba(192,57,43,0.12);}
+    .quiz-input:focus{border-color:var(--vermillion);box-shadow:0 0 0 2px rgba(var(--vermillion-rgb),0.12);}
     .quiz-input.correct{border-color:var(--correct);background:#f0faf4;color:var(--correct);}
     .quiz-input.wrong{border-color:var(--wrong);background:#fdf0ef;color:var(--wrong);}
     .quiz-feedback{font-size:0.95rem;font-style:italic;min-height:24px;transition:opacity 0.3s;}
@@ -147,7 +148,6 @@
 
 <nav class="back-nav">
   <a class="back-link" href="katakana.html">Katakana</a>
-  <span class="esc-hint">Esc to go back</span>
 </nav>
 
 <!-- ══ SETUP ══ -->
@@ -389,10 +389,13 @@ function submitAnswer() {
   document.getElementById('live-correct').textContent=correct;
   document.getElementById('live-wrong').textContent=wrong;
   document.getElementById('quiz-next-btn').classList.add('visible');
-  if (isCorrect) setTimeout(()=>{ if(answered) nextQuestion(); }, 900);
+  clearTimeout(autoNextTimer);
+  if (isCorrect) autoNextTimer = setTimeout(()=>{ if(answered) nextQuestion(); }, 900);
 }
 
+let autoNextTimer = null;
 function nextQuestion() {
+  clearTimeout(autoNextTimer);
   qIndex++;
   if (qIndex >= questions.length) showResults(); else renderQuestion();
 }
@@ -498,5 +501,6 @@ function playAgain() { selectedQ=lastConfig.q; selectedType=lastConfig.type; sta
 <script src="nav.js"></script>
 <script src="titlebar.js"></script>
 <script src="darkmode.js"></script>
+<script src="keys.js"></script>
 </body>
 </html>
