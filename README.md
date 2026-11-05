@@ -138,7 +138,7 @@ Whether you are starting your Japanese journey or brushing up on tricky combinat
 
 ---
 
-## 📸 Interface Preview
+## 📸 Home Screen Preview
 
 ![Screenshot](Screenshot.png)
 
