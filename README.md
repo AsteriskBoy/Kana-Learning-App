@@ -29,10 +29,9 @@ Whether you are starting your Japanese journey or brushing up on tricky combinat
 ## 🆕 What's New in 2.1
 
 - ✍️ **Stroke-order animations** for every kana, including combos and extended sounds
-- 🎨 **Light & Dark modes** with Mt. Fuji backgrounds, plus **six accent colours** (new **Theme** picker in the titlebar)
+- 🎨 **Light & Dark modes** with Mt. Fuji backgrounds, plus **6 accent colours** (new **Theme** picker in the titlebar)
 - ⌨️ **Full keyboard navigation**: arrow keys, Enter/Space, single-key shortcuts and a `?` cheat-sheet
-- 📴 **Fully offline**: audio clips and web fonts are stored locally; the app makes no network requests
-- 🌸 **Falling sakura petals** on the home page
+- 📴 **Fully offline**: audio clips and web fonts are stored locally, so the app makes no network requests
 - 🔁 Theme chosen on the splash screen now carries into the main window
 - 🧹 Removed the old font selector and size slider; removed the "Esc to go back" hints (Esc still works)
 - 🛠️ Quiz fix: a correct answer's auto-advance timer could skip the next question; it is now cancelled properly
