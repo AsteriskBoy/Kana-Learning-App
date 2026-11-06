@@ -3,7 +3,7 @@
   const style = document.createElement('style');
   style.id = 'kana-pixel-theme';
   style.textContent = `
-    @import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Pixelify+Sans:wght@400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=DM+Sans:wght@500;600;700&display=swap');
     :root {
       /* Pixel surfaces inherit the active accent palette. */
       --pixel-cream: var(--tile-bg, #fff8dc);
@@ -21,7 +21,7 @@
       font-family: 'Atkinson Hyperlegible', system-ui, sans-serif !important;
     }
     body h1, body h2, body h3, body h4, body h5, body h6, body .main-title, body .header-title, body .setup-title, body .results-title, body .chapter-heading, body .titlebar-title {
-      font-family: 'Pixelify Sans', system-ui, sans-serif !important;
+      font-family: 'DM Sans', system-ui, sans-serif !important;
     }
     body .card-glyph, body .tile-char, body .quiz-char, body .kanji-front-char, body .main-kana, body .front-jp, body .back-jp, body .header-kanji, body .corner {
       font-family: 'Noto Serif JP', 'Atkinson Hyperlegible', sans-serif !important;
@@ -51,21 +51,21 @@
     }
     body::after { content: '' !important; display: block !important; position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: .12; background: repeating-linear-gradient(0deg, transparent 0 3px, #241b36 3px 4px); }
     .wrap, main, header, #setup-screen, #quiz-screen, .back-nav, footer, .toolbar { position: relative; z-index: 2; }
-    .main-title, .header-title, .setup-title, .results-title, .chapter-heading { font-family: 'Pixelify Sans', system-ui, sans-serif !important; text-transform: uppercase; text-shadow: 3px 3px 0 var(--pixel-yellow); }
-    .eyebrow, .header-eyebrow, .setup-eyebrow, .section-label, .setup-label, .titlebar-title { font-family: 'Pixelify Sans', system-ui, sans-serif !important; letter-spacing: .12em !important; }
+    .main-title, .header-title, .setup-title, .results-title, .chapter-heading { font-family: 'DM Sans', system-ui, sans-serif !important; text-transform: uppercase; text-shadow: none; }
+    .eyebrow, .header-eyebrow, .setup-eyebrow, .section-label, .setup-label, .titlebar-title { font-family: 'DM Sans', system-ui, sans-serif !important; letter-spacing: .12em !important; }
     .subtitle, .header-desc, .setup-desc, .header-kanji, .setup-sub, .card-native, .tile-romaji, .tile-parts, .footer-text { font-family: 'Atkinson Hyperlegible', system-ui, sans-serif !important; font-style: normal !important; }
     body, body * { font-family: 'Atkinson Hyperlegible', system-ui, sans-serif !important; }
     body .card-script, body .card-native, body .footnote, body .eyebrow, body .subtitle, body .header-eyebrow, body .header-desc, body .setup-desc, body .setup-sub, body .footer-text, body .section-label, body .setup-label, body .tile-romaji, body .tile-parts { font-family: 'Atkinson Hyperlegible', system-ui, sans-serif !important; }
-    body h1, body h2, body h3, body h4, body h5, body h6, body .main-title, body .header-title, body .setup-title, body .results-title, body .chapter-heading, body .titlebar-title { font-family: 'Pixelify Sans', system-ui, sans-serif !important; }
+    body h1, body h2, body h3, body h4, body h5, body h6, body .main-title, body .header-title, body .setup-title, body .results-title, body .chapter-heading, body .titlebar-title { font-family: 'DM Sans', system-ui, sans-serif !important; }
     body .card-glyph, body .tile-char, body .quiz-char, body .kanji-front-char, body .main-kana, body .front-jp, body .back-jp, body .header-kanji, body .corner { font-family: 'Noto Serif JP', 'Atkinson Hyperlegible', sans-serif !important; }
     .card, .tile, .quiz-card, .results-card, .chart-card, .mistakes-card, .ack-banner, .q-opt, .type-opt, .quiz-input {
       border: 4px solid var(--pixel-purple) !important; border-radius: 0 !important; box-shadow: 6px 6px 0 var(--pixel-shadow) !important; background: var(--pixel-cream) !important;
     }
     .card:hover, .tile:hover, .q-opt:hover, .type-opt:hover { transform: translate(-2px, -2px); box-shadow: 8px 8px 0 var(--pixel-pink) !important; border-color: var(--pixel-pink) !important; }
-    .card-glyph, .tile-char, .quiz-char, .kanji-front-char, .main-kana, .front-jp, .back-jp { font-family: 'VT323', 'Noto Serif JP', monospace !important; color: var(--pixel-purple) !important; text-shadow: 2px 2px 0 var(--pixel-yellow); }
-    .quiz-link, .start-btn, .results-btn, .quiz-next-btn, .ack-btn { font-family: 'Pixelify Sans', system-ui, sans-serif !important; border-radius: 0 !important; border: 4px solid var(--pixel-ink) !important; box-shadow: 4px 4px 0 var(--pixel-ink) !important; background: var(--pixel-pink) !important; }
+    .card-glyph, .tile-char, .quiz-char, .kanji-front-char, .main-kana, .front-jp, .back-jp { font-family: 'VT323', 'Noto Serif JP', monospace !important; color: var(--pixel-purple) !important; text-shadow: none; }
+    .quiz-link, .start-btn, .results-btn, .quiz-next-btn, .ack-btn { font-family: 'DM Sans', system-ui, sans-serif !important; border-radius: 0 !important; border: 4px solid var(--pixel-ink) !important; box-shadow: 4px 4px 0 var(--pixel-ink) !important; background: var(--pixel-pink) !important; }
     .quiz-link:hover, .start-btn:hover, .results-btn:hover, .quiz-next-btn:hover, .ack-btn:hover { transform: translate(-2px, -2px) !important; box-shadow: 6px 6px 0 var(--pixel-ink) !important; }
-    .page-btn { border-radius: 0 !important; border-width: 3px !important; font-family: 'Pixelify Sans', system-ui, sans-serif !important; }
+    .page-btn { border-radius: 0 !important; border-width: 3px !important; font-family: 'DM Sans', system-ui, sans-serif !important; }
     .progress-track { height: 12px !important; border-radius: 0 !important; border: 3px solid var(--pixel-purple); background: var(--pixel-cream) !important; }
     .progress-fill { border-radius: 0 !important; background: var(--pixel-green) !important; }
     .divider { height: 4px !important; background: var(--pixel-pink) !important; opacity: 1 !important; }
