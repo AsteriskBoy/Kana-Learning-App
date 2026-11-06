@@ -5,18 +5,27 @@
   style.textContent = `
     @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
     :root {
-      --pixel-cream: #fff8dc;
-      --pixel-paper: #f6e7b0;
-      --pixel-ink: #241b36;
-      --pixel-purple: #573b8f;
-      --pixel-pink: #e85d91;
-      --pixel-yellow: #ffd166;
-      --pixel-green: #79c267;
+      /* Pixel surfaces inherit the active accent palette. */
+      --pixel-cream: var(--tile-bg, #fff8dc);
+      --pixel-paper: var(--paper, #f6e7b0);
+      --pixel-ink: var(--ink, #241b36);
+      --pixel-purple: var(--vermillion, #573b8f);
+      --pixel-pink: var(--vermillion-soft, #e85d91);
+      --pixel-yellow: var(--gold, #ffd166);
+      --pixel-green: var(--vermillion-soft, #79c267);
       --pixel-shadow: rgba(36, 27, 54, .25);
     }
     html, body { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%23241b36' stroke='%23fff8dc' stroke-width='2' d='M4 2v16l4-4 3 7 3-1-3-7h6z'/%3E%3C/svg%3E") 2 2, auto; }
     a, button, input, select, .tile, .card, .q-opt, .type-opt { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%23e85d91' stroke='%23fff8dc' stroke-width='2' d='M4 2v16l4-4 3 7 3-1-3-7h6z'/%3E%3C/svg%3E") 2 2, pointer; }
     body {
+      /* Resolve these on body so accent.js overrides apply per page and mode. */
+      --pixel-cream: var(--tile-bg, #fff8dc);
+      --pixel-paper: var(--paper, #f6e7b0);
+      --pixel-ink: var(--ink, #241b36);
+      --pixel-purple: var(--vermillion, #573b8f);
+      --pixel-pink: var(--vermillion-soft, #e85d91);
+      --pixel-yellow: var(--gold, #ffd166);
+      --pixel-green: var(--vermillion-soft, #79c267);
       background-color: var(--pixel-paper) !important;
       color: var(--pixel-ink) !important;
       font-family: 'VT323', monospace !important;
@@ -50,7 +59,16 @@
     #custom-titlebar { background: var(--pixel-purple) !important; border-bottom: 4px solid var(--pixel-yellow) !important; }
     .titlebar-title, .tb-btn { color: var(--pixel-cream) !important; }
     .tb-btn:hover { background: var(--pixel-pink) !important; }
-    body.dark { --pixel-paper: #171329; --pixel-cream: #282047; --pixel-ink: #fff8dc; --pixel-purple: #a98bea; --pixel-pink: #ff79ad; --pixel-yellow: #ffd166; --pixel-shadow: rgba(0,0,0,.5); background-color: var(--pixel-paper) !important; }
+    body.dark {
+      --pixel-paper: var(--paper, #171329);
+      --pixel-cream: var(--tile-bg, #282047);
+      --pixel-ink: var(--ink, #fff8dc);
+      --pixel-purple: var(--vermillion, #a98bea);
+      --pixel-pink: var(--vermillion-soft, #ff79ad);
+      --pixel-yellow: var(--gold, #ffd166);
+      --pixel-shadow: rgba(0,0,0,.5);
+      background-color: var(--pixel-paper) !important;
+    }
     body.dark::before { background-image: linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(135deg, rgba(255,121,173,.16), transparent 42%, rgba(169,139,234,.18)) !important; }
     body.dark .card, body.dark .tile, body.dark .quiz-card, body.dark .results-card, body.dark .chart-card, body.dark .mistakes-card, body.dark .ack-banner, body.dark .q-opt, body.dark .type-opt, body.dark .quiz-input { background: var(--pixel-cream) !important; color: var(--pixel-ink) !important; }
     @media (max-width: 600px) { .main-title { font-size: 2rem !important; } .grid { gap: 6px !important; } .tile { padding: 12px 4px 8px !important; } }
