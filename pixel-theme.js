@@ -69,7 +69,12 @@
       --pixel-shadow: rgba(0,0,0,.5);
       background-color: var(--pixel-paper) !important;
     }
-    body.dark::before { background-image: linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(135deg, rgba(255,121,173,.16), transparent 42%, rgba(169,139,234,.18)) !important; }
+    body.dark::before {
+      background-image: url('assets/fuji-dark.jpg'), linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(135deg, rgba(255,121,173,.16), transparent 42%, rgba(169,139,234,.18)) !important;
+      background-size: cover, 16px 16px, 16px 16px, 100% 100% !important;
+      background-position: center bottom, 0 0, 0 0, 0 0 !important;
+      background-repeat: no-repeat, repeat, repeat, no-repeat !important;
+    }
     body.dark .card, body.dark .tile, body.dark .quiz-card, body.dark .results-card, body.dark .chart-card, body.dark .mistakes-card, body.dark .ack-banner, body.dark .q-opt, body.dark .type-opt, body.dark .quiz-input { background: var(--pixel-cream) !important; color: var(--pixel-ink) !important; }
     @media (max-width: 600px) { .main-title { font-size: 2rem !important; } .grid { gap: 6px !important; } .tile { padding: 12px 4px 8px !important; } }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
