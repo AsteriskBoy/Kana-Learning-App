@@ -167,8 +167,10 @@
       [K('←', '↑', '↓', '→'), 'Move between blocks'],
       [K('Enter'), 'Hear pronunciation'],
       [K('S'), 'Show stroke order (focused block)'],
-      [K('1'), 'Standard page'],
-      [K('2'), 'Extended sounds page'],
+      ...(document.querySelector('.page-btn') ? [
+        [K('1'), 'Standard page'],
+        [K('2'), 'Extended sounds page'],
+      ] : []),
       [K('Q'), 'Open the quiz'],
     ]], ['Stroke-order window', [
       [K('Space'), 'Replay'],

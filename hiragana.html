@@ -7,7 +7,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Hiragana — Complete Reference</title>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Shippori+Mincho+B1:wght@400;600;800&family=Zen+Old+Mincho:wght@400;700&family=Sawarabi+Mincho&family=M+PLUS+1p:wght@400;700&family=Kaisei+Decol:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="fonts/fonts.css" rel="stylesheet" />
   <style>
     :root {
       --ink:#1a1410; --ink-soft:#3d352c; --paper:#f7f3ed;
@@ -37,13 +37,6 @@
     .toolbar{position:relative;z-index:10;display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap;padding:0 24px 8px;max-width:760px;margin:0 auto;}
     .quiz-link{font-family:'Cormorant Garamond',serif;font-size:0.82rem;letter-spacing:0.2em;color:#fff;background:var(--vermillion);text-decoration:none;text-transform:uppercase;padding:8px 18px;border-radius:5px;transition:opacity 0.2s;white-space:nowrap;}
     .quiz-link:hover{opacity:0.85;}
-    .page-switcher{position:relative;z-index:10;display:flex;justify-content:center;margin:0 auto 40px;max-width:400px;padding:0 24px;}
-    .page-btn{flex:1;background:none;border:1px solid var(--tile-border);border-right:none;padding:10px 8px;font-family:'Cormorant Garamond',serif;font-size:0.85rem;letter-spacing:0.15em;color:var(--ink-soft);cursor:pointer;transition:background 0.3s,color 0.3s,border-color 0.3s;}
-    .page-btn:first-child{border-radius:5px 0 0 5px;}
-    .page-btn:last-child{border-right:1px solid var(--tile-border);border-radius:0 5px 5px 0;}
-    .page-btn:hover{background:rgba(var(--vermillion-rgb),0.04);color:var(--vermillion);}
-    .page-btn.active{background:var(--vermillion);border-color:var(--vermillion);color:#fff;}
-    .page-btn.active+.page-btn{border-left-color:var(--vermillion);}
 
     /* ── Sections ── */
     .page-section{display:none;}
@@ -59,7 +52,6 @@
     .grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;max-width:30%;margin:0 auto;}
     .grid-1{display:grid;grid-template-columns:repeat(1,1fr);gap:10px;max-width:15%;margin:0 auto;}
     .grid-combo{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
-    .grid-ext{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;}
 
     .tile{background:var(--tile-bg);border:1px solid var(--tile-border);border-radius:6px;padding:18px 8px 10px;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:default;position:relative;transition:box-shadow 0.25s ease,border-color 0.25s ease;overflow:hidden;opacity:0;animation:fadeUp 0.5s ease forwards;}
     
@@ -67,7 +59,7 @@
     
     .tile-char{font-family:'Noto Serif JP',serif;font-size:2rem;font-weight:400;color:var(--ink);line-height:1;transition:color 0.25s ease;}
     .tile:hover .tile-char{color:var(--vermillion);}
-    .tile-combo .tile-char,.tile-ext .tile-char{font-size:1.55rem;}
+    .tile-combo .tile-char{font-size:1.55rem;}
     .tile-romaji{font-family:'Cormorant Garamond',serif;font-size:0.78rem;font-weight:400;letter-spacing:0.12em;color:var(--ink-soft);transition:color 0.3s ease;}
     .tile:hover .tile-romaji{color:var(--vermillion-soft);}
     .tile-parts{font-size:0.58rem;letter-spacing:0.08em;color:var(--tile-border);font-family:'Noto Serif JP',serif;transition:color 0.3s ease;}
@@ -92,11 +84,6 @@
 <div class="toolbar">
   <a class="quiz-link" href="quiz.html">✏ Take Quiz</a>
 </div>
-
-<nav class="page-switcher">
-  <button class="page-btn active" onclick="switchPage('standard',this)">Standard</button>
-  <button class="page-btn" onclick="switchPage('extended',this)">Extended Sounds</button>
-</nav>
 
 <div class="audio-hint-bar">
   <span>🔊</span>
@@ -136,43 +123,11 @@
     <p class="section-label">R combos</p><div class="grid-combo" id="comb-r"></div>
   </div>
 
-  <!-- ══ EXTENDED PAGE ══ -->
-  <div class="page-section" id="extended">
-    <p class="chapter-heading">Extended</p>
-    <p class="chapter-sub">Foreign sounds</p>
-
-    <p class="section-label">F sounds</p>
-    <div class="grid-ext" id="ext-f"></div>
-
-    <p class="section-label">V sounds</p>
-    <div class="grid-ext" id="ext-v"></div>
-
-    <p class="section-label">T / D extended</p>
-    <div class="grid-ext" id="ext-td"></div>
-
-    <p class="section-label">W sounds</p>
-    <div class="grid-ext" id="ext-w"></div>
-
-    <p class="section-label">SH / J / CH extended</p>
-    <div class="grid-ext" id="ext-sjc"></div>
-
-    <p class="section-label">Y extended</p>
-    <div class="grid-ext" id="ext-y"></div>
-  </div>
-
 </main>
 
 <footer><div class="divider"></div>  <p class="footer-text">Practice. Repeat. Remember.</p><span class="footer-kanji">言葉</span></footer>
 
 <script>
-function switchPage(id, btn) {
-  document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.page-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  btn.classList.add('active');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
 // ── Standard data ──
 const basic = {
   vowels:[{char:'あ',romaji:'a'},{char:'い',romaji:'i'},{char:'う',romaji:'u'},{char:'え',romaji:'e'},{char:'お',romaji:'o'}],
@@ -218,43 +173,6 @@ const combos = {
   'comb-r': [{char:'りゃ',romaji:'rya',parts:'り＋や'},{char:'りゅ',romaji:'ryu',parts:'り＋ゆ'},{char:'りょ',romaji:'ryo',parts:'り＋よ'}],
 };
 
-// ── Extended data ──
-const extended = {
-  'ext-f':  [
-    {char:'ふぁ',romaji:'fa', parts:'ふ＋ぁ'},
-    {char:'ふぃ',romaji:'fi', parts:'ふ＋ぃ'},
-    {char:'ふぇ',romaji:'fe', parts:'ふ＋ぇ'},
-    {char:'ふぉ',romaji:'fo', parts:'ふ＋ぉ'},
-    {char:'ふゅ',romaji:'fyu',parts:'ふ＋ゅ'},
-  ],
-  'ext-v':  [
-    {char:'ゔぁ',romaji:'va', parts:'ゔ＋ぁ'},
-    {char:'ゔぃ',romaji:'vi', parts:'ゔ＋ぃ'},
-    {char:'ゔ',  romaji:'vu', parts:'ゔ'},
-    {char:'ゔぇ',romaji:'ve', parts:'ゔ＋ぇ'},
-    {char:'ゔぉ',romaji:'vo', parts:'ゔ＋ぉ'},
-  ],
-  'ext-td': [
-    {char:'てぃ',romaji:'ti', parts:'て＋ぃ'},
-    {char:'とぅ',romaji:'tu', parts:'と＋ぅ'},
-    {char:'でぃ',romaji:'di', parts:'で＋ぃ'},
-    {char:'どぅ',romaji:'du', parts:'ど＋ぅ'},
-  ],
-  'ext-w':  [
-    {char:'うぃ',romaji:'wi', parts:'う＋ぃ'},
-    {char:'うぇ',romaji:'we', parts:'う＋ぇ'},
-    {char:'うぉ',romaji:'wo', parts:'う＋ぉ'},
-  ],
-  'ext-sjc':[
-    {char:'しぇ',romaji:'she',parts:'し＋ぇ'},
-    {char:'じぇ',romaji:'je', parts:'じ＋ぇ'},
-    {char:'ちぇ',romaji:'che',parts:'ち＋ぇ'},
-  ],
-  'ext-y':  [
-    {char:'いぇ',romaji:'ye', parts:'い＋ぇ'},
-  ],
-};
-
 let delay = 0;
 
 function buildBasic(id, data) {
@@ -275,20 +193,10 @@ function buildCombo(id, data) {
     el.appendChild(t);
   });
 }
-function buildExt(id, data) {
-  const el = document.getElementById(id);
-  data.forEach((item, i) => {
-    const t = document.createElement('div'); t.className = 'tile tile-ext'; t.style.animationDelay = `${i * 50}ms`;
-    t.innerHTML = `<span class="audio-badge">🔊</span><span class="stroke-btn" title="Stroke order">✎</span><span class="tile-char">${item.char}</span><span class="tile-romaji">${item.romaji}</span><span class="tile-parts">${item.parts}</span>`;
-    t.addEventListener('click', e => { if (e.target.closest('.stroke-btn')) { if (window.showStrokeOrder) window.showStrokeOrder(item.char, item.romaji); return; } if (window.speakKana) window.speakKana(item.char, t); });
-    el.appendChild(t);
-  });
-}
 
 Object.entries(basic).forEach(([id, data]) => buildBasic(id, data));
 Object.entries(dakuten).forEach(([id, data]) => buildBasic(id, data));
 Object.entries(combos).forEach(([id, data]) => buildCombo(id, data));
-Object.entries(extended).forEach(([id, data]) => buildExt(id, data));
 
 </script>
 <script src="strokes.js"></script>
