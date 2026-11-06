@@ -49,7 +49,7 @@ Whether you are starting your Japanese journey or brushing up on tricky combinat
   * Glides with small *ya (ゃ/ャ)*, *yu (ゅ/ュ)*, *yo (ょ/ョ)* (*kya, sha, cha, nya, hya, rya*, …).
 * **Extended Foreign Loanword Sounds (外来語 / Gairaigo)**
   * Modern combinations such as *fa, fi, fe, fo, va, vi, vu, ve, vo, ti, tu, di, du, wi, we, wo, she, je, che, ye*.
-* **Standard / Extended pages** on both the Hiragana and Katakana charts, switchable with a tab bar or the `1` / `2` keys.
+* **Standard / Extended pages** on  the Katakana chart, switchable with a tab bar or the `1` / `2` keys.
 
 ---
 
